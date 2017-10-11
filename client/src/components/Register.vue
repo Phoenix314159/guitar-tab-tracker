@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Register</h1>
+    <h1>Login</h1>
     <input type="email"
            name="email"
            v-model="email"
