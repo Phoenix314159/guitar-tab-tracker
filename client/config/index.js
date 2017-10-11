@@ -16,13 +16,13 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: process.env.PORT || 8080,
+    port: process.env.PORT || 3026,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
       '/api/**': {
-        target: 'http://localhost:4435'
+        target: 'http://localhost:3465'
       }
     },
     cssSourceMap: false

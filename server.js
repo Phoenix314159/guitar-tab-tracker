@@ -7,7 +7,13 @@ process.env.PWD = process.cwd();
 
 require('./middleware/middleware')(app);
 require('./routes/authentication')(app);
-// app.use('/', express.static(path.join(process.env.PWD, '/client')));
+
+//<------ production -------->
+// app.use(express.static(path.join(process.env.PWD, '/client/dist')));
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(process.env.PWD, '/client/dist/index.html'))
+// })
+//<-------------------------->
 
 
 app.listen(config.port, () => {
