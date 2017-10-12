@@ -10,6 +10,12 @@ module.exports = app => {
       keys: [config.cookieKey]
     })
   )
+
+  app.all('/api/*', (req, res, next) => {
+    req.db = req.app.get('db')
+    next()
+  });
+
   app.use(bodyParser.json())
   app.use(passport.initialize())
   app.use(passport.session())
