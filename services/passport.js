@@ -3,7 +3,7 @@ const passport = require('passport'),
   bcrypt = require('bcryptjs'),
   verifyPassword = (submittedPassword, userPassword) => {
     return bcrypt.compareSync(submittedPassword, userPassword)
-  }
+  };
 
 passport.use('local', new LocalStrategy({
   usernameField: 'username',
