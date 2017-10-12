@@ -1,12 +1,17 @@
 const passport = require('passport'),
-  app = require('../server'),
-  db = app.get('db'),
+  server = require('../server'),
+  config = require('../config/dev'),
   bcrypt = require('bcryptjs'),
+  massive = require('massive'),
+  connectionString = config.massiveUri,
   hashPass = password => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
   }
 
-module.exports = app => {
+module.exports = async app => {
+
+  server.set('db', await massive(connectionString))
+  const db = server.get('db')
 
   app.post('/api/login', passport.authenticate('local', {
     successRedirect: '/api/me',
@@ -29,11 +34,26 @@ module.exports = app => {
     res.redirect('/')
   })
 
-  app.post('/api/adduser', (req, res) => {
-    req.body.password = hashPass(req.body.password)
-    req.body.email = req.body.email.toLowerCase()
-    db.add_new_user([req.body.firstname, req.body.lastname, req.body.email, req.body.username, req.body.password], (err, user) => {
-      !err ? res.status(200).send(user) : res.status(500).send(err)
-    })
+  app.get('/api/getuser', async (req, res) => {
+    const user = await db.get_user()
+    res.send(user)
+  })
+
+  app.post('/api/adduser', async (req, res) => {
+    let fName = req.body.firstname,
+      lName = req.body.lastname,
+      email = req.body.email.toLowerCase(),
+      uName = req.body.username,
+      pass = hashPass(req.body.password),
+      newUser = await db.add_new_user([fName, lName, email, uName, pass])
+    try {
+      res.status(200).send(newUser)
+    }
+    catch (err) {
+      console.log(err)
+      re.status(500).send(err)
+    }
   })
 }
+
+

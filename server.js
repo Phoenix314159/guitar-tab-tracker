@@ -1,11 +1,9 @@
 const express = require('express'),
   path = require('path'),
   config = require('./config/dev'),
-  app = module.exports = express(),
-  massive = require('massive'),
-  connectionString = config.massiveUri;
+  app = module.exports = express();
 
-process.env.PWD = process.cwd()
+process.env.PWD = process.cwd();
 
 require('./services/passport')
 require('./middleware/middleware')(app)
@@ -17,13 +15,12 @@ require('./routes/users')(app)
 //     res.sendFile(path.join(process.env.PWD, '/client/dist/index.html'))
 // })
 //<-------------------------->
+// massive(connectionString).then(massiveInstance => {
+//   app.set('db', massiveInstance);
+// });
 
-const connectToDB = async () => {
-  let massiveInstance = await massive(connectionString);
-  app.set('db', massiveInstance);
-  app.listen(config.port, () => {
-    console.log(`listening on port ${config.port}`)
-  })
-};
-connectToDB();
+app.listen(config.port, () => {
+  console.log(`listening on port ${config.port}`)
+})
+
 
