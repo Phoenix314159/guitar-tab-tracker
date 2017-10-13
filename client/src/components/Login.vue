@@ -16,11 +16,12 @@
     </div>
     <br>
     <button class="btn btn-primary" @click="login">Login</button>
+    <router-link to="/"><button class="btn btn-danger">Cancel</button></router-link>
   </div>
 </template>
 
 <script>
-  import AuthService from '../services/user'
+  import UserService from '../services/user'
   export default {
     data () {
       return {
@@ -30,7 +31,7 @@
     },
     methods: {
       async login () {
-        const response = await AuthService.login({
+        const response = await UserService.login({
           username: this.username,
           password: this.password
         })
