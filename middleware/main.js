@@ -1,15 +1,15 @@
 const bodyParser = require('body-parser'),
   cookieSession = require('cookie-session'),
   passport = require('passport'),
-  config = require('../config/dev')
+  config = require('../config/dev'),
+  asyncMiddleWare = require('express-async-await')
 
 module.exports = app => {
-  app.use(
-    cookieSession({
-      maxAge: config.cookieAge,
-      keys: [config.cookieKey]
-    })
-  )
+
+  app.use(cookieSession({
+    maxAge: config.cookieAge,
+    keys: [config.cookieKey]
+  }))
 
   app.all('/api/*', (req, res, next) => {
     req.db = req.app.get('db')
@@ -19,4 +19,6 @@ module.exports = app => {
   app.use(bodyParser.json())
   app.use(passport.initialize())
   app.use(passport.session())
+
+  asyncMiddleWare(app)
 }

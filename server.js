@@ -5,16 +5,12 @@ const express = require('express'),
   massive = require('massive'),
   connectionString = config.massiveUri;
 
-(async () => {
-  app.set('db', await massive(connectionString))
-})();
+(async () => { app.set('db', await massive(connectionString)) })()
 
-require('./services/passport');
-require('./middleware/middleware')(app)
+require('./services/passport')
+require('./middleware/main')(app)
 require('./routes/users')(app)
 require('./routes/getUsers')(app)
-require('./middleware/error')(app)
-
 //<------ production -------->
 // process.env.PWD = process.cwd()
 // app.use(express.static(path.join(process.env.PWD, '/client/dist')));
@@ -22,6 +18,7 @@ require('./middleware/error')(app)
 //     res.sendFile(path.join(process.env.PWD, '/client/dist/index.html'))
 // })
 //<-------------------------->
+require('./middleware/error')(app)
 
 app.listen(config.port, () => {
   console.log(`listening on port ${config.port}`)

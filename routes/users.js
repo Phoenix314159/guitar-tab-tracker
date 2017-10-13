@@ -8,8 +8,6 @@ const passport = require('passport'),
 
 module.exports = app => {
 
-  require('express-async-await')(app);
-
   app.post('/api/login', passport.authenticate('local', {
     successRedirect: '/api/user',
     failureRedirect: '/api/null',
@@ -26,7 +24,7 @@ module.exports = app => {
 
   app.get('/api/logout', (req, res) => {
     req.logout()
-    res.redirect('/')
+    res.status(200).send('logged out')
   })
 
   app.get('/api/getuser', async (req, res) => {
@@ -37,7 +35,8 @@ module.exports = app => {
 
   app.post('/api/adduser', async (req, res) => {
     let db = req.db,
-      newUser = await db.add_new_user([req.body.firstname, req.body.lastname, req.body.email.toLowerCase(), req.body.username, hashPass(req.body.password)])
+      newUser = await db.add_new_user([req.body.firstname, req.body.lastname,
+        req.body.email.toLowerCase(), req.body.username, hashPass(req.body.password)])
     res.status(200).send(newUser)
   })
 }
