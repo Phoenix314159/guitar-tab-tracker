@@ -30,14 +30,16 @@ module.exports = app => {
   app.get('/api/getuser', async (req, res) => {
     let db = req.db,
       user = await db.get_user([req.query.id])
-    res.send(user)
+    res.status(200).send(user)
   })
 
   app.post('/api/adduser', async (req, res) => {
     let db = req.db,
-      newUser = await db.add_new_user([req.body.firstname, req.body.lastname,
-        req.body.email.toLowerCase(), req.body.username, hashPass(req.body.password)])
-    res.status(200).send(newUser)
+      newUser = [req.body.firstname, req.body.lastname,
+        req.body.email.toLowerCase(), req.body.username, hashPass(req.body.password)];
+    await db.add_new_user(newUser)
+    res.write('new user added', newUser)
+    res.status(200).end();
   })
 }
 

@@ -8,3 +8,6 @@ create table Users(
 );
 
 
+select table1.orderID, table2.customerName
+from table1
+inner join table2 on table1.customerId = table2.customerId

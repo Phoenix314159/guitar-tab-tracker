@@ -33,7 +33,9 @@
                              placeholder="password"/>
     </div>
     <br>
-    <button class="btn btn-primary" @click="addNewUser">Sign Up</button>
+    <router-link to="/login">
+      <button class="btn btn-primary" @click="addNewUser">Sign Up</button>
+    </router-link>
     <router-link to="/">
       <button class="btn btn-danger">Cancel</button>
     </router-link>
@@ -52,15 +54,14 @@
       }
     },
     methods: {
-      async addNewUser () {
-        const response = await UserService.addNewUser({
+      addNewUser () {
+        UserService.addNewUser({
           firstname: this.firstname,
           lastname: this.lastname,
           email: this.email,
           username: this.username,
           password: this.password
         })
-        console.log(response.data)
       }
     }
   }

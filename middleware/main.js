@@ -2,7 +2,7 @@ const bodyParser = require('body-parser'),
   cookieSession = require('cookie-session'),
   passport = require('passport'),
   config = require('../config/dev'),
-  asyncMiddleWare = require('express-async-await')
+  asyncMiddleWare = require('express-async-await'); // error handling for async routes
 
 module.exports = app => {
 

@@ -15,7 +15,7 @@
                              placeholder="password"/>
     </div>
     <br>
-    <button class="btn btn-primary" @click="login">Login</button>
+    <router-link to="/"><button class="btn btn-primary" @click="login">Login</button></router-link>
     <router-link to="/"><button class="btn btn-danger">Cancel</button></router-link>
   </div>
 </template>
@@ -30,12 +30,11 @@
       }
     },
     methods: {
-      async login () {
-        const response = await UserService.login({
+      login () {
+        UserService.login({
           username: this.username,
           password: this.password
         })
-        console.log(response.data)
       }
     }
   }
