@@ -4,9 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "./node_modules/nodemon/bin/nodemon.js server.js --exec 'npm run lint && node'",
+    "start": "",
     "server": "nodemon server.js",
-    "lint": "./node_modules/.bin/eslint **/*.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },

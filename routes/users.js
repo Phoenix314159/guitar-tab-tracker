@@ -1,3 +1,4 @@
+'use strict'
 const passport = require('passport'),
   config = require('../config/dev'),
   isAuthed = require('../middleware/auth'),
@@ -19,7 +20,7 @@ module.exports = app => {
   })
 
   app.get('/api/null', (req, res) => {
-    res.status(404).send('User Not Found')
+    res.status(200).send('User Not Found')
   })
 
   app.get('/api/logout', (req, res) => {

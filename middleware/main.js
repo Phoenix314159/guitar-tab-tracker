@@ -1,3 +1,4 @@
+'use strict'
 const bodyParser = require('body-parser'),
   cookieSession = require('cookie-session'),
   passport = require('passport'),

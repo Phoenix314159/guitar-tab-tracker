@@ -1,3 +1,4 @@
+'use strict'
 const passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
   bcrypt = require('bcryptjs'),
@@ -13,7 +14,10 @@ passport.use('local', new LocalStrategy({
   let db = req.db,
     user = await db.read_username([username]);
   user = user[0];
-  if (!user) return done(null, false)
+  if (!user){
+    console.log('user not found')
+    return done(null, false)
+  }
   if (verifyPassword(password, user.password)) {
     delete user.password
     return done(null, user)
