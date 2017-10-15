@@ -15,7 +15,6 @@ passport.use('local', new LocalStrategy({
     user = await db.read_username([username]);
   user = user[0];
   if (!user){
-    console.log('user not found')
     return done(null, false)
   }
   if (verifyPassword(password, user.password)) {

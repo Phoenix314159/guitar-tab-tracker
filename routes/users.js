@@ -12,15 +12,18 @@ module.exports = app => {
   app.post('/api/login', passport.authenticate('local', {
     successRedirect: '/api/user',
     failureRedirect: '/api/null',
-    failureFlash: true
+    successFlash: 'You are logged in!',
+    failureFlash: 'Invalid username or password.'
   }))
 
   app.get('/api/user', isAuthed.auth, (req, res) => {
-    res.status(200).send(req.user)
+    let success = req.flash().success[0]
+    res.status(200).send({message: success, user: req.user})
   })
 
   app.get('/api/null', (req, res) => {
-    res.status(200).send('User Not Found')
+    let error = req.flash().error[0]
+    res.status(200).send(error)
   })
 
   app.get('/api/logout', (req, res) => {
@@ -37,10 +40,10 @@ module.exports = app => {
   app.post('/api/adduser', async (req, res) => {
     let db = req.db,
       newUser = [req.body.firstname, req.body.lastname,
-        req.body.email.toLowerCase(), req.body.username, hashPass(req.body.password)];
+        req.body.email.toLowerCase(), req.body.username, hashPass(req.body.password)]
     await db.add_new_user(newUser)
-    res.write('new user added', newUser)
-    res.status(200).end();
+    newUser.pop() //don't send back hashed password
+    res.status(200).send({message: 'new user added', user: newUser})
   })
 }
 

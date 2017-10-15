@@ -1,8 +1,8 @@
-'use strict'
 const bodyParser = require('body-parser'),
   cookieSession = require('cookie-session'),
   passport = require('passport'),
   config = require('../config/dev'),
+  flash = require('connect-flash'),
   asyncMiddleWare = require('express-async-await'); // error handling for async routes
 
 module.exports = app => {
@@ -18,6 +18,7 @@ module.exports = app => {
   })
 
   app.use(bodyParser.json())
+  app.use(flash())
   app.use(passport.initialize())
   app.use(passport.session())
 
