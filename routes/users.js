@@ -23,7 +23,7 @@ module.exports = app => {
 
   app.get('/api/null', (req, res) => {
     let error = req.flash().error[0]
-    res.status(200).send(error)
+    res.status(200).send({message: error})
   })
 
   app.get('/api/logout', (req, res) => {
@@ -39,11 +39,9 @@ module.exports = app => {
 
   app.post('/api/adduser', async (req, res) => {
     let db = req.db,
-      newUser = [req.body.firstname, req.body.lastname,
-        req.body.email.toLowerCase(), req.body.username, hashPass(req.body.password)]
-    await db.add_new_user(newUser)
-    newUser.pop() //don't send back hashed password
-    res.status(200).send({message: 'new user added', user: newUser})
+      newUser = [req.body.firstname, req.body.lastname, req.body.email.toLowerCase(), req.body.username, hashPass(req.body.password)],
+      response = await db.add_new_user(newUser) // if successful response will be an empty array
+    res.status(200).send({message: 'new user added', user: response})
   })
 }
 
