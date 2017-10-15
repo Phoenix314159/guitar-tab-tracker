@@ -1,4 +1,3 @@
-'use strict'
 const passport = require('passport'),
   config = require('../config/dev'),
   isAuthed = require('../middleware/auth'),
@@ -16,8 +15,9 @@ module.exports = app => {
     failureFlash: 'Invalid username or password.'
   }))
 
-  app.get('/api/user', isAuthed.auth, (req, res) => {
-    let success = req.flash().success[0]
+  app.get('/api/user', isAuthed.auth, async (req, res) => {
+    let success = req.flash().success[0], db = req.db;
+    console.log(req.session)
     res.status(200).send({message: success, user: req.user})
   })
 
@@ -28,6 +28,7 @@ module.exports = app => {
 
   app.get('/api/logout', (req, res) => {
     req.logout()
+    req.session.destroy()
     res.status(200).send('logged out')
   })
 

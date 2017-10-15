@@ -1,13 +1,10 @@
 create table Users(
-    ID  serial primary key,
-    firstname varchar(255),
-    lastname varchar(255),
-    email varchar(255),
-    username varchar(255),
-    password varchar(255)
+    id serial primary key,
+    firstname varchar(255) not null ,
+    lastname varchar(255) not null,
+    email varchar(255) not null,
+    username varchar(255) not null,
+    password varchar(255) not null
 );
 
 
-select table1.orderID, table2.customerName
-from table1
-inner join table2 on table1.customerId = table2.customerId

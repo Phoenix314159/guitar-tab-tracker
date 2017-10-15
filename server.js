@@ -1,4 +1,3 @@
-'use strict'
 const express = require('express'),
   path = require('path'),
   config = require('./config/dev'),
@@ -7,10 +6,6 @@ const express = require('express'),
   connectionString = config.massiveUri;
 
 (async () => { app.set('db', await massive(connectionString)) })()
-
-require('./services/passport')
-require('./middleware/main')(app)
-require('./routes/users')(app)
 //<------ production -------->
 // process.env.PWD = process.cwd()
 // app.use(express.static(path.join(process.env.PWD, '/client/dist')));
@@ -18,6 +13,9 @@ require('./routes/users')(app)
 //     res.sendFile(path.join(process.env.PWD, '/client/dist/index.html'))
 // })
 //<-------------------------->
+require('./services/passport')
+require('./middleware/main')(app)
+require('./routes/users')(app)
 require('./middleware/error')(app)
 
 app.listen(config.port, () => {

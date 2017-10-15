@@ -1,4 +1,3 @@
-'use strict'
 const passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
   bcrypt = require('bcryptjs'),
@@ -25,10 +24,13 @@ passport.use('local', new LocalStrategy({
 }))
 
 passport.serializeUser((user, done) => {
+  console.log('yo')
+
   done(null, user)
 })
 
 passport.deserializeUser((user, done) => {
+  console.log('man')
   done(null, user)
 })
 
