@@ -94,7 +94,7 @@ concurrently@^3.5.0:
     supports-color "^3.2.3"
     tree-kill "^1.1.0"
 
-connect-flash@^0.1.1:
+connect-flash@0.1.x, connect-flash@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/connect-flash/-/connect-flash-0.1.1.tgz#d8630f26d95a7f851f9956b1e8cc6732f3b6aa30"
 
@@ -186,6 +186,12 @@ express-async-await@^1.1.0:
   resolved "https://registry.yarnpkg.com/express-async-await/-/express-async-await-1.1.0.tgz#6621d4d575a0f140afdc2c004390f15e9715f873"
   dependencies:
     express "^4.15.4"
+
+express-flash@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/express-flash/-/express-flash-0.0.2.tgz#23d1a8bcf3f90d707928e489f96869ecad0acda2"
+  dependencies:
+    connect-flash "0.1.x"
 
 express-session@^1.15.6:
   version "1.15.6"

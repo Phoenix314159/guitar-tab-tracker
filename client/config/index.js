@@ -22,7 +22,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api/**': {
-        target: 'http://localhost:3465'
+        target: 'http://localhost:3475'
       }
     },
     cssSourceMap: false

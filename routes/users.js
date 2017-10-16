@@ -1,35 +1,43 @@
-const passport = require('passport'),
-  config = require('../config/dev'),
+const config = require('../config/dev'),
   isAuthed = require('../middleware/auth'),
+  loggedIn = require('../middleware/loggedIn'),
   bcrypt = require('bcryptjs'),
   hashPass = password => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
   }
 
-module.exports = app => {
+module.exports = (app, passport) => {
 
   app.post('/api/login', passport.authenticate('local', {
     successRedirect: '/api/user',
     failureRedirect: '/api/null',
-    successFlash: 'You are logged in!',
-    failureFlash: 'Invalid username or password.'
-  }))
+    failureFlash: true
+  }),  function(req, res) {
+    console.log('kjahgwodejhg',req.user);
+    req.session.user = req.user;
+  })
 
-  app.get('/api/user', isAuthed.auth, async (req, res) => {
-    let success = req.flash().success[0], db = req.db;
-    console.log(req.session)
-    res.status(200).send({message: success, user: req.user})
+  app.get('/api/user', async (req, res) => {
+    return res.status(200).send({message: 'You are logged In!', user: req.user})
   })
 
   app.get('/api/null', (req, res) => {
-    let error = req.flash().error[0]
-    res.status(200).send({message: error})
+    return res.status(200).send({message: 'Invalid username or password'})
   })
 
-  app.get('/api/logout', (req, res) => {
+  app.get('/api/logout', async (req, res) => {
     req.logout()
     req.session.destroy()
-    res.status(200).send('logged out')
+    await req.sessionStore.destroy(req.sessionID, err => {
+      console.log(err)
+    })
+    console.log(req.session)
+    return res.status(200).send('logged out')
+  })
+
+  app.get('/api/current_user', (req, res) => {
+    console.log(req.user)
+    return res.send(req.user)
   })
 
   app.get('/api/getuser', async (req, res) => {
@@ -42,7 +50,7 @@ module.exports = app => {
     let db = req.db,
       newUser = [req.body.firstname, req.body.lastname, req.body.email.toLowerCase(), req.body.username, hashPass(req.body.password)],
       response = await db.add_new_user(newUser) // if successful response will be an empty array
-    res.status(200).send({message: 'new user added', user: response})
+    return res.status(200).send({message: 'new user added', user: response})
   })
 }
 

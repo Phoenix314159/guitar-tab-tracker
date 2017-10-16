@@ -1,9 +1,10 @@
 module.exports = {
-    loggedIn: (req, res, next) => {
+    isLoggedIn: (req, res, next) => {
+        console.log('yo man')
         if (req.user) {
-            next();
+          next()
         } else {
-            res.redirect('/#!/login');
+          res.redirect('/#!/login');
         }
     }
 }

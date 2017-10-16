@@ -1,5 +1,6 @@
 const express = require('express'),
   path = require('path'),
+  passport = require('passport'),
   config = require('./config/dev'),
   app = express(),
   massive = require('massive'),
@@ -13,9 +14,11 @@ const express = require('express'),
 //     res.sendFile(path.join(process.env.PWD, '/client/dist/index.html'))
 // })
 //<-------------------------->
-require('./services/passport')
+
 require('./middleware/main')(app)
-require('./routes/users')(app)
+require('./services/passport')(passport)
+require('./middleware/passport')(app, passport)
+require('./routes/users')(app, passport)
 require('./middleware/error')(app)
 
 app.listen(config.port, () => {
