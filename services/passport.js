@@ -21,6 +21,7 @@ module.exports = passport => {
     passwordField: 'password',
     passReqToCallback: true
   }, async (req, username, password, done) => {
+    username = username.toLowerCase()
     let db = req.db,
       foundUser = await db.read_username([username]),
       user = foundUser[0]

@@ -14,8 +14,6 @@ const express = require('express'),
 //     res.sendFile(path.join(process.env.PWD, '/client/dist/index.html'))
 // })
 //<-------------------------->
-
-
 require('./services/passport')(passport)
 require('./middleware/main')(app)
 require('./middleware/passport')(app, passport)

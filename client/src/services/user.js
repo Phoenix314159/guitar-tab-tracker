@@ -12,5 +12,9 @@ export default {
   addNewUser: async data => {
     let response = await axios.post('/api/adduser', data)
     console.log(response.data.message)
+  },
+  currentUser: async () => {
+    let response = await axios.get('/api/current_user')
+    return response.data
   }
 }

@@ -12,7 +12,7 @@ const pg = require('pg'),
     database: config.database,
     port: config.dbPort,
     max: 10,
-    idleTimeoutMillis: 100000
+    idleTimeoutMillis: 6000000
   })
 
 module.exports = app => {
@@ -26,12 +26,14 @@ module.exports = app => {
   asyncMiddleWare(app)
   app.use(session({
     store: new pgSession({
-      pool: pgPool
+      // pool: pgPool
+      conString: config.massiveUri,
+      tableName : 'session'
     }),
     secret: config.cookieKey,
+    rolling: false,
     resave: false,
     saveUninitialized: false,
     cookie: {maxAge: config.cookieAge},
-    secure: true
   }))
 }

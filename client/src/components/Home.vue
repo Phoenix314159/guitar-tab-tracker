@@ -16,16 +16,13 @@
         </li>
       </router-link>
     </ul>
-    <h2>Ecosystem</h2>
     <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
       <router-link to="/login">
         <button class="btn btn-primary">Login</button>
       </router-link>
       <button class="btn btn-warning" @click="logout">Logout</button>
+      <button class="btn btn-danger" @click="currentUser">Current User</button>
+      <h1>{{ user }}</h1>
     </ul>
   </div>
 </template>
@@ -36,12 +33,19 @@
     name: 'Home',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App'
+        msg: 'Welcome to Your Vue.js App',
+        user: ''
       }
     },
     methods: {
       logout () {
         UserService.logout()
+        this.user = ''
+      },
+      currentUser () {
+        UserService.currentUser().then(res => {
+          this.user = res
+        })
       }
     }
   }
