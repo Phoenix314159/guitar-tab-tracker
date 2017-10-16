@@ -38,6 +38,14 @@
       }
     },
     methods: {
+      login () {
+        UserService.login().then(res => {
+          const {message} = res.data
+          if (message === 'please create an account') {
+            this.user = message
+          }
+        })
+      },
       logout () {
         UserService.logout()
         this.user = ''

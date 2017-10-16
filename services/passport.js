@@ -5,13 +5,14 @@ const LocalStrategy = require('passport-local').Strategy,
   }
 
 module.exports = passport => {
+
   passport.serializeUser((user, done) => {
     done(null, user)
   })
 
   passport.deserializeUser(async (req, user, done) => {
     let db = req.db,
-      foundUser = await db.search_user_by_id([user.id])
+      foundUser = await db.search_user_by_id([user.id]);
     foundUser = foundUser[0]
     done(null, foundUser)
   })
@@ -21,9 +22,8 @@ module.exports = passport => {
     passwordField: 'password',
     passReqToCallback: true
   }, async (req, username, password, done) => {
-    username = username.toLowerCase()
     let db = req.db,
-      foundUser = await db.read_username([username]),
+      foundUser = await db.read_username([username.toLowerCase()]),
       user = foundUser[0]
     if (!user) {
       return done(null, false)

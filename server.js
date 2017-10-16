@@ -1,10 +1,9 @@
 const express = require('express'),
   path = require('path'),
   passport = require('passport'),
-  config = require('./config/dev'),
+  {serverPort, connectionString} = require('./config/dev'),
   app = express(),
-  massive = require('massive'),
-  connectionString = config.massiveUri;
+  massive = require('massive');
 
 (async () => { app.set('db', await massive(connectionString)) })()
 //<------ production -------->
@@ -17,11 +16,12 @@ const express = require('express'),
 require('./services/passport')(passport)
 require('./middleware/main')(app)
 require('./middleware/passport')(app, passport)
-require('./routes/users')(app, passport)
+require('./routes/auth')(app, passport)
+require('./routes/users')(app)
 require('./middleware/error')(app)
 
-app.listen(config.port, () => {
-  console.log(`listening on port ${config.port}`)
+app.listen(serverPort, () => {
+  console.log(`listening on port ${serverPort}`)
 })
 
 

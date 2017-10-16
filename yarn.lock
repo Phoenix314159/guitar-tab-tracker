@@ -94,6 +94,10 @@ concurrently@^3.5.0:
     supports-color "^3.2.3"
     tree-kill "^1.1.0"
 
+connect-flash-plus@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/connect-flash-plus/-/connect-flash-plus-0.2.1.tgz#f72dc6c66839f517d3937122e6248dd5296a928d"
+
 connect-flash@0.1.x, connect-flash@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/connect-flash/-/connect-flash-0.1.1.tgz#d8630f26d95a7f851f9956b1e8cc6732f3b6aa30"
