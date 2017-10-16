@@ -507,7 +507,7 @@ pg-types@1.*, pg-types@~1.12.1:
     pgpass "1.*"
     semver "4.3.2"
 
-pg@~7.3.0:
+pg@^7.3.0, pg@~7.3.0:
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/pg/-/pg-7.3.0.tgz#275e27466e54a645f6b4a16f6acadf6b849ad83b"
   dependencies:

@@ -1,5 +1,4 @@
 const config = require('../config/dev'),
-  isAuthed = require('../middleware/auth'),
   loggedIn = require('../middleware/loggedIn'),
   bcrypt = require('bcryptjs'),
   hashPass = password => {
@@ -8,35 +7,18 @@ const config = require('../config/dev'),
 
 module.exports = (app, passport) => {
 
-  app.post('/api/login', passport.authenticate('local', {
-    successRedirect: '/api/user',
-    failureRedirect: '/api/null',
-    failureFlash: true
-  }),  function(req, res) {
-    console.log('kjahgwodejhg',req.user);
-    req.session.user = req.user;
-  })
-
-  app.get('/api/user', async (req, res) => {
-    return res.status(200).send({message: 'You are logged In!', user: req.user})
-  })
-
-  app.get('/api/null', (req, res) => {
-    return res.status(200).send({message: 'Invalid username or password'})
+  app.post('/api/login', passport.authenticate('local'), (req, res) => {
+    res.send({message: 'you are logged in', user: req.user})
   })
 
   app.get('/api/logout', async (req, res) => {
-    req.logout()
-    req.session.destroy()
-    await req.sessionStore.destroy(req.sessionID, err => {
+    await req.sessionStore.destroy(req.session.id, err => {
       console.log(err)
     })
-    console.log(req.session)
-    return res.status(200).send('logged out')
+    res.status(200).send('you are logged out')
   })
 
   app.get('/api/current_user', (req, res) => {
-    console.log(req.user)
     return res.send(req.user)
   })
 
