@@ -101,14 +101,6 @@ concurrently@^3.5.0:
     supports-color "^3.2.3"
     tree-kill "^1.1.0"
 
-connect-flash-plus@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/connect-flash-plus/-/connect-flash-plus-0.2.1.tgz#f72dc6c66839f517d3937122e6248dd5296a928d"
-
-connect-flash@0.1.x, connect-flash@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/connect-flash/-/connect-flash-0.1.1.tgz#d8630f26d95a7f851f9956b1e8cc6732f3b6aa30"
-
 connect-pg-simple@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/connect-pg-simple/-/connect-pg-simple-4.2.1.tgz#bd7eb68d98326ddb01abb963cd3016f7ec1e2926"
@@ -159,8 +151,8 @@ crc@3.4.4:
   resolved "https://registry.yarnpkg.com/crc/-/crc-3.4.4.tgz#9da1e980e3bd44fc5c93bf5ab3da3378d85e466b"
 
 date-fns@^1.23.0:
-  version "1.28.5"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.28.5.tgz#257cfc45d322df45ef5658665967ee841cd73faf"
+  version "1.29.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.29.0.tgz#12e609cdcb935127311d04d33334e2960a2a54e6"
 
 debug@2.6.9:
   version "2.6.9"
@@ -201,12 +193,6 @@ express-async-await@^1.1.0:
   resolved "https://registry.yarnpkg.com/express-async-await/-/express-async-await-1.1.0.tgz#6621d4d575a0f140afdc2c004390f15e9715f873"
   dependencies:
     express "^4.15.4"
-
-express-flash@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/express-flash/-/express-flash-0.0.2.tgz#23d1a8bcf3f90d707928e489f96869ecad0acda2"
-  dependencies:
-    connect-flash "0.1.x"
 
 express-res-status@^1.0.2:
   version "1.0.2"

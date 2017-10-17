@@ -2,10 +2,10 @@ const bodyParser = require('body-parser'),
   session = require('express-session'),
   {cookieKey, maxAge} = require('../config/dev'),
   resStatus = require('express-res-status'),
-  dbRoutes = require('./dbRoutes'),
+  dbRoutesMiddleWare = require('./dbRoutes'),
   pgSession = require('connect-pg-simple')(session),
   pool = require('../services/pgPool'),
-  asyncMiddleWare = require('express-async-await'); // error handling for async routes
+  asyncMiddleWare = require('express-async-await') // error handling for async routes
 
 module.exports = app => {
 
@@ -20,7 +20,7 @@ module.exports = app => {
     cookie: {maxAge},
     secure: true,
   }))
-  dbRoutes(app)
+  dbRoutesMiddleWare(app)
   asyncMiddleWare(app)
   app.use(resStatus())
 }

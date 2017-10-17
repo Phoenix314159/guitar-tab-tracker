@@ -12,7 +12,7 @@ module.exports = passport => {
 
   passport.deserializeUser(async (req, user, done) => {
     let db = req.db,
-      foundUser = await db.search_user_by_id([user.id]);
+      foundUser = await db.search_user_by_id([user.id])
     foundUser = foundUser[0]
     done(null, foundUser)
   })
@@ -24,10 +24,8 @@ module.exports = passport => {
   }, async (req, username, password, done) => {
     let db = req.db,
       foundUser = await db.read_username([username.toLowerCase()]),
-      user = foundUser[0];
-    if (!user) {
-      return done(null, false)
-    }
+      user = foundUser[0]
+    if (!user) return done(null, false)
     if (verifyPassword(password, user.password)) {
       delete user.password
       return done(null, user)

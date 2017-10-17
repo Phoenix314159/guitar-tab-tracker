@@ -1,2 +1,2 @@
-select * from users
-where id = $1;
+SELECT * FROM users
+WHERE id = $1;

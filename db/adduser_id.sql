@@ -1,2 +1,2 @@
-insert into "session" (userId)
-values ($1);
+INSERT INTO "session" (userId)
+VALUES ($1);
