@@ -24,6 +24,7 @@ module.exports = passport => {
     if (!user) return done(null, false)
     if (verifyPassword(password, user.password)) {
       delete user.password
+      req.message = 'you are logged in'
       return done(null, user)
     }
     return done(null, false)

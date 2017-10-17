@@ -1,7 +1,6 @@
 module.exports = {
   isLoggedIn: (req, res, next) => {
-    const {user} = req
-    if (user) {
+    if (req.user) {
       next()
     }
     res.redirect('/#!/login')
