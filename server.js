@@ -8,9 +8,9 @@ const express = require('express'),
 (async () => { app.set('db', await massive(connectionString)) })()
 //<------ production -------->
 // process.env.PWD = process.cwd()
-// app.use(express.static(path.join(process.env.PWD, '/client/dist')));
+// app.use(express.static(path.join(process.env.PWD, '/dist')));
 // app.get('*', (req, res) => {
-//     res.sendFile(path.join(process.env.PWD, '/client/dist/index.html'))
+//     res.sendFile(path.join(process.env.PWD, '/dist/index.html'))
 // })
 //<-------------------------->
 require('./services/passport')(passport)

@@ -11,9 +11,7 @@ module.exports = passport => {
   })
 
   passport.deserializeUser(async (req, user, done) => {
-    let db = req.db,
-      foundUser = await db.search_user_by_id([user.id])
-    foundUser = foundUser[0]
+    const [foundUser] = await req.db.search_user_by_id([user.id])
     done(null, foundUser)
   })
 
@@ -22,9 +20,7 @@ module.exports = passport => {
     passwordField: 'password',
     passReqToCallback: true
   }, async (req, username, password, done) => {
-    let db = req.db,
-      foundUser = await db.read_username([username.toLowerCase()]),
-      user = foundUser[0]
+    const [user] = await req.db.read_username([username.toLowerCase()])
     if (!user) return done(null, false)
     if (verifyPassword(password, user.password)) {
       delete user.password

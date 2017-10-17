@@ -1,13 +1,13 @@
 module.exports = (app, passport) => {
 
   app.post('/api/login', passport.authenticate('local'), (req, res) => {
-    let user = req.user, message = 'you are logged in'
-    return res.ok({user, message})
+    const user = req.user, message = 'you are logged in'
+    return res.ok({user, message}) //if authentication is successful, message and user are sent
   })
 
   app.get('/api/logout', async (req, res) => {
-    let message = 'you are logged out'
-    await req.sessionStore.destroy(req.session.id, err => { //delete session record in db
+    const message = 'you are logged out', {id} = req.session, {destroy} = req.sessionStore
+    await destroy(id, err => { //delete session record in db
       if (err) console.log(err)
       req.logout()
     })
@@ -16,9 +16,9 @@ module.exports = (app, passport) => {
   })
 
   app.get('/api/clean_sessions', async (req, res) => {
-    let db = req.db, message = 'all sessions cleared from session table',
-    session = await db.delete_all_sessions()
-    res.ok({message, session})
+    const message = 'all sessions cleared from session table',
+    session = await req.db.delete_all_sessions()
+    return res.ok({message, session})
   })
 }
 
