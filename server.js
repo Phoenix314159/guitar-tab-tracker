@@ -1,9 +1,9 @@
 const express = require('express'),
   path = require('path'),
   passport = require('passport'),
+  massive = require('massive'),
   {serverPort, connectionString} = require('./config/dev'),
-  app = express(),
-  massive = require('massive');
+  app = express();
 
 (async () => { app.set('db', await massive(connectionString)) })()
 //<------ production -------->
