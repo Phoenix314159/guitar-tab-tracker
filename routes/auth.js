@@ -14,6 +14,12 @@ module.exports = (app, passport) => {
     req.session.destroy()
     return res.ok({message})
   })
+
+  app.get('/api/clean_sessions', async (req, res) => {
+    let db = req.db, message = 'all sessions cleared from session table',
+    session = await db.delete_all_sessions()
+    res.ok({message, session})
+  })
 }
 
 
