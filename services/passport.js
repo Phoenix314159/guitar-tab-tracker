@@ -24,7 +24,7 @@ module.exports = passport => {
   }, async (req, username, password, done) => {
     let db = req.db,
       foundUser = await db.read_username([username.toLowerCase()]),
-      user = foundUser[0]
+      user = foundUser[0];
     if (!user) {
       return done(null, false)
     }

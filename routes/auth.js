@@ -1,10 +1,8 @@
-const config = require('../config/dev');
-
 module.exports = (app, passport) => {
 
-  app.post('/api/auth/login', passport.authenticate('local'), (req, res) => {
+  app.post('/api/login', passport.authenticate('local'), (req, res) => {
     let user = req.user, message = 'you are logged in'
-    return res.status(200).send({user, message})
+    return res.ok({user, message})
   })
 
   app.get('/api/logout', async (req, res) => {
@@ -14,7 +12,7 @@ module.exports = (app, passport) => {
       req.logout()
     })
     req.session.destroy()
-    return res.status(200).send({message})
+    return res.ok({message})
   })
 }
 

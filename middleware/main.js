@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser'),
   session = require('express-session'),
   {cookieKey, maxAge} = require('../config/dev'),
+  resStatus = require('express-res-status'),
   dbRoutes = require('./dbRoutes'),
   pgSession = require('connect-pg-simple')(session),
   pool = require('../services/pgPool'),
@@ -8,10 +9,8 @@ const bodyParser = require('body-parser'),
 
 module.exports = app => {
 
-  dbRoutes(app)
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({extended: true}))
-  asyncMiddleWare(app)
   app.use(session({
     store: new pgSession({pool}),
     secret: cookieKey,
@@ -19,6 +18,9 @@ module.exports = app => {
     resave: false,
     saveUninitialized: false,
     cookie: {maxAge},
-    secure: true
+    secure: true,
   }))
+  dbRoutes(app)
+  asyncMiddleWare(app)
+  app.use(resStatus())
 }
