@@ -1,2 +1,2 @@
-INSERT INTO users(firstname, lastname, email, username, password)
-VALUES($1, $2, $3, $4, $5);
+insert into users(firstname, lastname, email, username, password)
+values($1, $2, $3, $4, $5);

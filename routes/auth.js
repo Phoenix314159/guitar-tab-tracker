@@ -1,10 +1,14 @@
 module.exports = (app, passport) => {
 
   app.post('/api/login',
-    passport.authenticate('local', {failureRedirect: '/api/null'}), (req, res) => {
-      const {user, message} = req
-    return res.ok({user, message}) //if authentication is successful, message and user are sent
-  })
+    passport.authenticate('local', {failureRedirect: '/api/null'}), async (req, res) => {
+      let {message, count, user: {id}, sessionID} = req
+      count++;
+        console.log(count)
+      // console.log(req.session.count)
+      // const user = await db.add_userId([id, sessionID])
+      return res.ok({message}) //if authentication is successful, message is sent
+    })
 
   app.get('/api/null', (req, res) => {
     const {message} = req  //if redirected here, middleware sets req.message
@@ -13,7 +17,7 @@ module.exports = (app, passport) => {
 
   app.get('/api/logout', async (req, res) => {
     const {user, message, noLogin, sessionStore, session: {id}} = req
-    if(!user) return res.ok(noLogin)
+    if (!user) return res.ok(noLogin)
     await sessionStore.destroy(id, err => { //deletes session record in db
       if (err) console.log(err)
     })
@@ -28,9 +32,9 @@ module.exports = (app, passport) => {
   })
 
   app.get('/clear', (req, res) => {
-    res.clearCookie({path: '/'});
+    res.clearCookie({path: '/'})
     res.ok('cookie gone')
-  });
+  })
 }
 
 

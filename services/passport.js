@@ -11,7 +11,7 @@ module.exports = passport => {
     passwordField: 'password',
     passReqToCallback: true
   }, async (req, username, password, done) => {
-    const {db} = req, [user] = await db.read_username([username.toLowerCase()])
+    let {db} = req, [user] = await db.read_username([username.toLowerCase()])
     if (!user) return done(null, false)
     if (verifyPassword(password, user.password)) {
       delete user.password

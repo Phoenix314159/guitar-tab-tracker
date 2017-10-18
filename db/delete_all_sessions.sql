@@ -1,1 +1,1 @@
-DELETE FROM "session";
+delete from "session";
