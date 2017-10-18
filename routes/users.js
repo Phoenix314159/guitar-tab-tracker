@@ -15,14 +15,14 @@ module.exports = app => {
   })
 
   app.get('/api/current_user', auth.isAuthed, (req, res) => {
-    const {user} = req, message = 'you need to log in'
-    if (!user) return res.ok({message}) // if user is null, a login is needed
+    const {user, message} = req
+    if (!user) return res.ok({message}) // if user is null or undefined, a login is needed
     delete user['password'] //don't need to send back hashed password
     return res.ok({user})
   })
 
   app.get('/api/get_user', async (req, res) => {
-    const {db} = req, {id} = req.query, message = 'no user found',
+    const {db, message, query: {id}} = req,
       [user] = await db.get_user_by_id([id])
     if(!user) return res.notFound({message})
     delete user['password']
@@ -30,17 +30,22 @@ module.exports = app => {
   })
 
   app.post('/api/add_user', async (req, res) => {
-    const {db} = req, message = 'new user added', {firstname, lastname, email, username, password} = req.body
-    if (checkField(firstname, lastname, email, username, password)) { //check for null values entered
+    const {db, message, body: {firstname, lastname, email, username, password}} = req
+    if (checkField(firstname, lastname, email, username, password)) { //check for null or undefined values entered
       return res.badRequest('bad request')
     }
     const user = await db.add_user([firstname, lastname, email, username.toLowerCase(), hashPass(password)])
-    return res.created({message, user}) // if successful user will be an empty array
+    return res.ok({message, user}) // if successful user will be an empty array
   })
 
   app.get('/api/delete_user', async (req, res) => {
-    const {db} = req, {id} = req.query, message = 'user deleted',
-      user = await db.delete_user([id])
+    const {db, message, query: {id}} = req, user = await db.delete_user([id])
     return res.ok({message, user}) // if successful user will be an empty array
+  })
+
+  app.post('/api/change_password', auth.isAuthed, async (req, res) => {
+    const {db, message, user: {id}, body: {password}} = req, newPassword = hashPass(password)
+    await db.change_password([newPassword, id])
+    res.ok({message}) //once this is complete
   })
 }

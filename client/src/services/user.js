@@ -10,8 +10,8 @@ export default {
     console.log(response)
   },
   addNewUser: async data => {
-    let response = await axios.post('/api/adduser', data)
-    console.log(response.data.message)
+    let response = await axios.post('/api/add_user', data)
+    console.log(response)
   },
   currentUser: async () => {
     let response = await axios.get('/api/current_user')

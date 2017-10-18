@@ -3,6 +3,6 @@ module.exports = {
     if (req.user) {
       next()
     }
-    res.redirect('/#!/login')
+    res.ok('please log in')
   }
 }

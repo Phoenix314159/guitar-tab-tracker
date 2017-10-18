@@ -7,12 +7,13 @@ module.exports = (app, passport) => {
   })
 
   app.get('/api/null', (req, res) => {
-    const message = 'invalid email address or password'
+    const {message} = req
     return res.ok({message})
   })
 
   app.get('/api/logout', async (req, res) => {
-    const message = 'you are logged out', {sessionStore, session: {id}} = req
+    const {user, message, sessionStore, session: {id}} = req
+    if(!user) return res.ok('you must login first')
     await sessionStore.destroy(id, err => { //deletes session record in db
       if (err) console.log(err)
       req.session.destroy(() => { // deletes session from express

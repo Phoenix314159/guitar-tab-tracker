@@ -2,7 +2,7 @@ const express = require('express'),
   path = require('path'),
   passport = require('passport'),
   massive = require('massive'),
-  {serverPort, connectionString} = require('./config/dev'),
+  {port, db: {connectionString}} = require('./config/dev'),
   app = express();
 
 (async () => { app.set('db', await massive(connectionString)) })()
@@ -20,8 +20,8 @@ require('./routes/auth')(app, passport)
 require('./routes/users')(app)
 require('./middleware/error')(app)
 
-app.listen(serverPort, () => {
-  console.log(`listening on port ${serverPort}`)
+app.listen(port, () => {
+  console.log(`listening on port ${port}`)
 })
 
 

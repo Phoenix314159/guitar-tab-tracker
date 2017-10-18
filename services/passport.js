@@ -1,10 +1,24 @@
-const LocalStrategy = require('passport-local').Strategy,
+const {Strategy} = require('passport-local'),
   bcrypt = require('bcryptjs'),
   verifyPassword = (submittedPassword, savedPassword) => {
     return bcrypt.compareSync(submittedPassword, savedPassword)
   }
 
 module.exports = passport => {
+
+  passport.use('local', new Strategy({ //<--- local strategy
+    usernameField: 'username',
+    passwordField: 'password',
+    passReqToCallback: true
+  }, async (req, username, password, done) => {
+    const {db} = req, [user] = await db.read_username([username.toLowerCase()])
+    if (!user) return done(null, false)
+    if (verifyPassword(password, user.password)) {
+      delete user.password
+      return done(null, user)
+    }
+    return done(null, false)
+  }))
 
   passport.serializeUser((user, done) => {
     done(null, user)
@@ -14,21 +28,6 @@ module.exports = passport => {
     const {db} = req, [foundUser] = await db.search_user_by_id([user.id])
     done(null, foundUser)
   })
-
-  passport.use('local', new LocalStrategy({
-    usernameField: 'username',
-    passwordField: 'password',
-    passReqToCallback: true
-  }, async (req, username, password, done) => {
-    const {db} = req, [user] = await db.read_username([username.toLowerCase()])
-    if (!user) return done(null, false)
-    if (verifyPassword(password, user.password)) {
-      delete user.password
-      req.message = 'you are logged in'
-      return done(null, user)
-    }
-    return done(null, false)
-  }))
 }
 
 
