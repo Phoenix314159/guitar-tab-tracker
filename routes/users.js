@@ -45,7 +45,7 @@ module.exports = app => {
 
   app.post('/api/change_password', auth.isAuthed, async (req, res) => {
     const {db, message, user: {id}, body: {password}} = req, newPassword = hashPass(password)
-    await db.change_password([newPassword, id])
-    res.ok({message}) //once this is complete
+    await db.change_password([newPassword, id]) //update old hashed password in db to new on
+    res.ok({message})
   })
 }

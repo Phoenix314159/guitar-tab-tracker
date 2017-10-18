@@ -7,7 +7,7 @@ module.exports = (app, passport) => {
   })
 
   app.get('/api/null', (req, res) => {
-    const {message} = req
+    const {message} = req  //if redirected here, middleware assigns req.message
     return res.ok({message})
   })
 
