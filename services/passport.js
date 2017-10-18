@@ -1,7 +1,7 @@
 const {Strategy} = require('passport-local'),
-  bcrypt = require('bcryptjs'),
+  {compareSync} = require('bcryptjs'),
   verifyPassword = (submittedPassword, savedPassword) => {
-    return bcrypt.compareSync(submittedPassword, savedPassword)
+    return compareSync(submittedPassword, savedPassword)
   }
 
 module.exports = passport => {

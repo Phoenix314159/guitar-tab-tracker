@@ -14,7 +14,7 @@ module.exports = app => {
     return res.ok({allUsers})
   })
 
-  app.get('/api/current_user', auth.isAuthed, (req, res) => {
+  app.get('/api/current_user',  (req, res) => {
     const {user, message} = req
     if (!user) return res.ok({message}) // if user is null or undefined, a login is needed
     delete user['password'] //don't need to send back hashed password
@@ -45,7 +45,7 @@ module.exports = app => {
 
   app.post('/api/change_password', auth.isAuthed, async (req, res) => {
     const {db, message, user: {id}, body: {password}} = req, newPassword = hashPass(password)
-    await db.change_password([newPassword, id]) //update old hashed password in db to new on
+    await db.change_password([newPassword, id]) //update old hashed password in db to new one
     res.ok({message})
   })
 }

@@ -6,6 +6,7 @@ module.exports = app => {
 
   app.use('/api/logout', (req, res, next) => {
     req.message = 'you are logged out'
+    req.noLogin = 'you must login first'
     next()
   })
 
