@@ -15,8 +15,7 @@ const express = require('express'),
 // })
 //<-------------------------->
 require('./services/passport')(passport)
-require('./middleware/main')(app)
-require('./middleware/passport')(app, passport)
+require('./middleware/main')(app, passport)
 require('./routes/auth')(app, passport)
 require('./routes/users')(app)
 require('./middleware/error')(app)

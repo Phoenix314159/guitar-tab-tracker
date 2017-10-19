@@ -9,7 +9,7 @@ const bodyParser = require('body-parser'),
   pool = require('../services/pgPool'),
   asyncMiddleWare = require('express-async-await') // error handling for async routes
 
-module.exports = app => {
+module.exports = (app, passport) => {
 
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({extended: true}))
@@ -27,4 +27,6 @@ module.exports = app => {
   asyncMiddleWare(app)
   logIn(app)
   users(app)
+  app.use(passport.initialize())
+  app.use(passport.session())
 }
