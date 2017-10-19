@@ -2,10 +2,10 @@ const express = require('express'),
   path = require('path'),
   passport = require('passport'),
   massive = require('massive'),
-  {port, db: {connectionString}} = require('./config/dev'),
+  {port, dbConnection} = require('./config/dev'),
   app = express();
 
-(async () => { app.set('db', await massive(connectionString)) })()
+(async () => { app.set('db', await massive(dbConnection)) })()
 //<------ production -------->
 // process.env.PWD = process.cwd()
 // app.use(express.static(path.join(process.env.PWD, '/dist')));

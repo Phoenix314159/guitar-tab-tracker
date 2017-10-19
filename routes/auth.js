@@ -1,13 +1,10 @@
 module.exports = (app, passport) => {
 
   app.post('/api/login',
-    passport.authenticate('local', {failureRedirect: '/api/null'}), async (req, res) => {
-      let {message, count, user: {id}, sessionID} = req
-      count++;
-        console.log(count)
-      // console.log(req.session.count)
-      // const user = await db.add_userId([id, sessionID])
-      return res.ok({message}) //if authentication is successful, message is sent
+    passport.authenticate('local', {failureRedirect: '/api/null'}), (req, res) => {
+      const {db, message, user, session} = req
+      // await db.add_login_info([user.id, 1, session.id])
+      return res.ok({message, user})
     })
 
   app.get('/api/null', (req, res) => {
@@ -26,8 +23,8 @@ module.exports = (app, passport) => {
   })
 
   app.get('/api/clean_sessions', async (req, res) => {
-    const {db} = req, message = 'all sessions cleared from session table',
-      session = await db.delete_all_sessions() //deletes all session records in db
+    const {message, db: {run}} = req,
+      session = await run('delete from "session"') //deletes all session records in db
     return res.ok({message, session})
   })
 

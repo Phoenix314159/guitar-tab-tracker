@@ -1,11 +1,7 @@
 module.exports = app => {
+
   app.use('/api/login', (req, res, next) => {
     req.message = 'you are logged in'
-    if (req.count > 0) {
-      req.count++
-      next()
-    }
-    req.count = 0  // counts the number of times users log in
     next()
   })
 
@@ -17,6 +13,11 @@ module.exports = app => {
 
   app.use('/api/null', (req, res, next) => {
     req.message = 'invalid email address or password'
+    next()
+  })
+
+  app.use('/api/clean_sessions', (req, res, next) => {
+    req.message = 'all sessions cleared from session table'
     next()
   })
 }

@@ -1,4 +1,4 @@
-update login
-set userId = $1,
-    logInCount = $2
-where "sid" = $3;
+insert into login(userId, logInCount,sessionId)
+values($1, $2, $3)
+
+

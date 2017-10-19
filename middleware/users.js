@@ -11,6 +11,8 @@ module.exports = app => {
 
   app.use('/api/add_user', (req, res, next) => {
     req.message = 'new user added'
+    req.dbQuery = `insert into users(firstname, lastname, email, username, password)
+                   values($1, $2, $3, $4, $5)`
     next()
   })
 
@@ -21,6 +23,7 @@ module.exports = app => {
 
   app.use('/api/change_password', (req, res, next) => {
     req.message = 'password changed'
+    req.dbQuery = 'update users set password = $1 where id = $2'
     next()
   })
 }
