@@ -40,7 +40,7 @@ module.exports = {
     }
     passwordCheckBlock: {
       const regEx = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/
-      if(regEx.test(password)) break passwordCheckBlock // if password does not match regex, break and add new user
+      if(regEx.test(password)) break passwordCheckBlock // if password matches regex, break and add new user
       return res.ok(passCheck)
     }
     const user = await run(dbQuery, [firstname, lastname, email, username.toLowerCase(), hashPass(password)]);
