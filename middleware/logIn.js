@@ -1,5 +1,4 @@
 module.exports = app => {
-
   app.use('/api/login', (req, res, next) => {
     req.message = 'you are logged in'
     next()

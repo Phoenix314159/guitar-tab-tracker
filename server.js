@@ -6,6 +6,7 @@ const express = require('express'),
   app = express();
 
 (async () => { app.set('db', await massive(dbConnection)) })()
+
 //<------ production -------->
 // process.env.PWD = process.cwd()
 // app.use(express.static(path.join(process.env.PWD, '/dist')));

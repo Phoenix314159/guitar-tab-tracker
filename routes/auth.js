@@ -1,11 +1,9 @@
 module.exports = (app, passport) => {
 
-  app.post('/api/login',
-    passport.authenticate('local', {failureRedirect: '/api/null'}), (req, res) => {
-      const {db, message, user, session} = req
-      // await db.add_login_info([user.id, 1, session.id])
-      return res.ok({message, user})
-    })
+  app.post('/api/login', passport.authenticate('local', {failureRedirect: '/api/null'}), (req, res) => {
+    const {message, user} = req
+    return res.ok({message, user})
+  })
 
   app.get('/api/null', (req, res) => {
     const {message} = req  //if redirected here, middleware sets req.message
