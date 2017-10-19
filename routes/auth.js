@@ -1,35 +1,18 @@
+const authController = require('../controllers/authController'),
+  failure = {failureRedirect: '/api/null'}
+
 module.exports = (app, passport) => {
 
-  app.post('/api/login', passport.authenticate('local', {failureRedirect: '/api/null'}), (req, res) => {
-    const {message, user} = req
-    return res.ok({message, user})
-  })
+  app.post('/api/login', passport.authenticate('local', failure), authController.login)
 
-  app.get('/api/null', (req, res) => {
-    const {message} = req  //if redirected here, middleware sets req.message
-    return res.ok({message})
-  })
+  app.get('/api/null', authController.loginFailure)
 
-  app.get('/api/logout', async (req, res) => {
-    const {user, message, noLogin, sessionStore, session: {id}} = req
-    if (!user) return res.ok(noLogin)
-    await sessionStore.destroy(id, err => { //deletes session record in db
-      if (err) console.log(err)
-    })
-    req.session.destroy() // deletes session from express
-    return res.ok({message})
-  })
+  app.get('/api/logout', authController.logout)
 
-  app.get('/api/clean_sessions', async (req, res) => {
-    const {message, db: {run}} = req,
-      session = await run('delete from "session"') //deletes all session records in db
-    return res.ok({message, session})
-  })
+  app.get('/api/clear_sessions', authController.clearSessions)
 
-  app.get('/clear', (req, res) => {
-    res.clearCookie({path: '/'})
-    res.ok('cookie gone')
-  })
+  app.get('/api/clear_cookie', authController.clearCookie)
+
 }
 
 
