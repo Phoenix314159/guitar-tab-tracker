@@ -7,7 +7,7 @@ const checkField = require('../services/checkField'),
 module.exports = {
 
   async getAllUsers(req, res) {
-    const {db: {run}} = req, allUsers = await run('select * from users'); //array of all users from users table
+    const {dbQuery, db: {run}} = req, allUsers = await run(dbQuery); //array of all users from users table
     allUsers.map(user => { delete user['password'] }) // iterate over array to delete every hashed password
     return res.ok({allUsers})
   },
@@ -27,17 +27,20 @@ module.exports = {
   },
 
   async addNewUser(req, res) {
-    const {dbQuery, message, db: {run}, body: {firstname, lastname, email, username, password}} = req
+    const {dbQuery, message, emailMessage, db: {run, users}, 
+      body: {firstname, lastname, email, username, password}} = req
     if (checkField(firstname, lastname, email, username, password)) { //check for null or undefined values entered
       return res.badRequest('bad request')
     }
+    const [User] = await users.find({email}); //find user with entered email address
+    if(User.email === email) return res.ok(emailMessage)
     const user = await run(dbQuery, [firstname, lastname, email, username.toLowerCase(), hashPass(password)]);
     return res.ok({message, user}) // if successful user will be an empty array
   },
 
   async deleteUser(req, res) {
-    const {message, db: {run}, query: {id}} = req,
-      user = await run('delete from users where id = $1', [id]);
+    const {dbQuery, message, db: {run}, query: {id}} = req,
+      user = await run(dbQuery, [id]);
     return res.ok({message, user}) // if successful user will be an empty array
   },
 

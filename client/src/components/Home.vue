@@ -47,8 +47,13 @@
         })
       },
       logout () {
-        UserService.logout()
-        this.user = ''
+        UserService.logout().then(res => {
+          const message = res.data
+          if (message === 'you must login first') {
+            this.user = message
+          }
+          this.user = ''
+        })
       },
       currentUser () {
         UserService.currentUser().then(res => {

@@ -6,7 +6,7 @@ module.exports = app => {
 
   app.get('/api/get_all_users', usersController.getAllUsers)
 
-  app.get('/api/current_user', usersController.currentUser)
+  app.get('/api/current_user', auth.isAuthed, usersController.currentUser)
 
   app.get('/api/get_user', usersController.getUser)
 

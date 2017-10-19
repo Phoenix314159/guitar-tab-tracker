@@ -1,4 +1,5 @@
 module.exports = {
+
   login(req, res) {
     const {message, user} = req
     return res.ok({message, user})
@@ -12,16 +13,14 @@ module.exports = {
   async logout(req, res) {
     const {user, message, noLogin, sessionStore, session: {id}} = req
     if (!user) return res.ok(noLogin)
-    await sessionStore.destroy(id, err => { //deletes session record in db
-      if (err) console.log(err)
-    })
+    await sessionStore.destroy(id, err => { if (err) console.log(err) })
     req.session.destroy() // deletes session from express
     return res.ok({message})
   },
 
   async clearSessions(req, res) {
     const {message, db: {run}} = req,
-      session = await run('delete from "session"') //deletes all session records in db
+      session = await run('delete from "session"'); //deletes all session records in db
     return res.ok({message, session})
   },
 
