@@ -1,12 +1,11 @@
-const {hashSync, genSaltSync} = require('bcryptjs'),
-  hashPass = password => {
-    return hashSync(password, genSaltSync(10))
-  }
+const hashPass = require('../services/hashPass'),
+  passwordCheck = require('../services/passwordCheck'),
+  emailCheck = require('../services/emailCheck')
 
 module.exports = {
 
   async getAllUsers(req, res) {
-    const {dbQuery, db: {run}} = req, allUsers = await run(dbQuery) //array of all users from users table
+    const {dbQuery, db: {run}} = req, allUsers = await run(dbQuery); //array of all users from users table
     allUsers.map(user => { delete user['password'] }) // iterate over array to delete every hashed password
     return res.ok({allUsers})
   },
@@ -19,28 +18,26 @@ module.exports = {
   },
 
   async getUser(req, res) {
-    const {message, db: {users}, query: {id}} = req, [user] = await users.findOne({id})
+    const {message, db: {users}, query: {id}} = req, [user] = await users.findOne({id});
     if (!user) return res.notFound({message})
     delete user['password']
     return res.ok({user})
   },
 
   async addNewUser(req, res) {
-    const {dbQuery, message, emailMessage, invalidEmail, checkField, db: {run, users}, // const users is users table in db
-      passCheck, body: {firstname, lastname, email, username, password}} = req
+    const {dbQuery, message, emailMessage, invalidEmail, checkField, invalidFields,
+      passCheck, db: {run, users}, body: {firstname, lastname, email, username, password}} = req
     if (checkField(firstname, lastname, email, username, password)) { //check for null or undefined values entered
-      return res.badRequest('bad request')
+      return res.ok(invalidFields)
     }
     emailCheckBlock: { // check if email address entered is valid and user with entered email already exists
-      const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      if(!regEx.test(email)) return res.ok(invalidEmail)
+      if (!emailCheck(email)) return res.ok(invalidEmail)
       const [user] = await users.find({email}); //find user with entered email address
       if (!user) break emailCheckBlock // if user with email does not exist, break and check password
       if (user.email === email) return res.ok(emailMessage)
     }
     passwordCheckBlock: {
-      const regEx = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/
-      if(regEx.test(password)) break passwordCheckBlock // if password matches regex, break and add new user
+      if (passwordCheck(password)) break passwordCheckBlock //if users new password meets requirements
       return res.ok(passCheck)
     }
     const user = await run(dbQuery, [firstname, lastname, email, username.toLowerCase(), hashPass(password)]);
@@ -54,8 +51,9 @@ module.exports = {
   },
 
   async changePass(req, res) {
-    const {dbQuery, message, db: {run}, user: {id}, body: {password}} = req, newPassword = hashPass(password)
-    await run(dbQuery, [newPassword, id]);
+    const {dbQuery, message, passCheck, db: {run}, user: {id}, body: {password}} = req, newPassword = hashPass(password);
+    if (!passwordCheck(newPassword)) return res.ok(passCheck)
+    await run(dbQuery, [newPassword, id])
     res.ok({message})  //update old hashed password in db to new one
   }
 }

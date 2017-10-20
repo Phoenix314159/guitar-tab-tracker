@@ -15,7 +15,8 @@ module.exports = app => {
     next()
   })
 
-  app.use('/api/clean_sessions', (req, res, next) => {
+  app.use('/api/clear_sessions', (req, res, next) => {
+    req.dbQuery = 'delete from "session"'
     req.message = 'all sessions cleared from session table'
     next()
   })

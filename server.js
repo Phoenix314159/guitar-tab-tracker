@@ -18,7 +18,7 @@ require('./services/passport')(passport)
 require('./middleware/main')(app, passport)
 require('./routes/auth')(app, passport)
 require('./routes/users')(app)
-require('./middleware/error')(app)
+require('./middleware/serverError')(app)
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`)

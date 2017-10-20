@@ -2,6 +2,7 @@ const bodyParser = require('body-parser'),
   session = require('express-session'),
   {cookie: {cookieKey, maxAge}} = require('../config/dev'),
   logIn = require('./logIn'),
+  addUser = require('./addUser'),
   users = require('./users'),
   resStatus = require('express-res-status'),
   dbRoutesMiddleWare = require('./dbRoutes'),
@@ -26,6 +27,7 @@ module.exports = (app, passport) => {
   dbRoutesMiddleWare(app)
   asyncMiddleWare(app)
   logIn(app)
+  addUser(app)
   users(app)
   app.use(passport.initialize())
   app.use(passport.session())
