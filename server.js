@@ -2,18 +2,15 @@ const express = require('express'),
   path = require('path'),
   passport = require('passport'),
   massive = require('massive'),
-  {port, dbConnection} = require('./config/dev'),
+  config = require('./config/dev'),
+  {port, dbConnection} = config,
   app = express();
 
 (async () => { app.set('db', await massive(dbConnection)) })()
 
-//<------ production -------->
-// process.env.PWD = process.cwd()
-// app.use(express.static(path.join(process.env.PWD, '/dist')));
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(process.env.PWD, '/dist/index.html'))
-// })
-//<-------------------------->
+if(process.env.NODE_ENV === 'production') {
+  require('./services/prod')(app, express, config);
+}
 require('./services/passport')(passport)
 require('./middleware/main')(app, passport)
 require('./routes/auth')(app, passport)
