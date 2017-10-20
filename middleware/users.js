@@ -24,7 +24,7 @@ module.exports = app => {
   app.use('/api/change_password', (req, res, next) => {
     req.message = 'password changed'
     req.dbQuery = 'update users set password = $1 where id = $2'
-    req.passCheck =  `password must contain at least one letter, one number, a special character, 
+    req.passMessage = `password must contain at least one letter, one number, a special character, 
                       be 8 to 20 characters long, and not start with a special character`
     next()
   })

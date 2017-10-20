@@ -2,7 +2,7 @@ const express = require('express'),
   path = require('path'),
   passport = require('passport'),
   massive = require('massive'),
-  config = require('./config/dev'),
+  config = require('./config/config'),
   {port, dbConnection} = config,
   app = express();
 

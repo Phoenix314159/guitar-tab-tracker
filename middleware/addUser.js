@@ -7,6 +7,7 @@ module.exports = app => {
     }
     req.invalidEmail = 'please enter a valid email address'
     req.invalidFields = 'please fill out all fields'
+    req.userMessage = 'username entered already exists'
     req.passCheck =  `password must contain at least one letter, one number, a special character, 
                       be 8 to 20 characters long, and not start with a special character`
     req.dbQuery = `insert into users(firstname, lastname, email, username, password)

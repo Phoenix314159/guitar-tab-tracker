@@ -1,5 +1,5 @@
 const hashPass = require('../services/hashPass'),
-  passwordCheck = require('../services/passwordCheck'),
+  passCheck = require('../services/passCheck'),
   emailCheck = require('../services/emailCheck')
 
 module.exports = {
@@ -25,23 +25,36 @@ module.exports = {
   },
 
   async addNewUser(req, res) {
-    const {dbQuery, message, emailMessage, invalidEmail, checkField, invalidFields,
-      passCheck, db: {run, users}, body: {firstname, lastname, email, username, password}} = req
+    const {dbQuery, message, emailMessage, invalidEmail, checkField, invalidFields, userMessage,
+      passMessage, db: {run, users}, body: {firstname, lastname, email, username, password}} = req
     if (checkField(firstname, lastname, email, username, password)) { //check for null or undefined values entered
       return res.ok(invalidFields)
+    }
+    usernameCheckBlock: {
+      const [user] = await users.find({username}); //find user with entered username
+      if (!user) break usernameCheckBlock // if user with username does not exist, break and check email
+      if (user.username === username) return res.ok(userMessage)
     }
     emailCheckBlock: { // check if email address entered is valid and user with entered email already exists
       if (!emailCheck(email)) return res.ok(invalidEmail)
       const [user] = await users.find({email}); //find user with entered email address
+      console.log(user)
       if (!user) break emailCheckBlock // if user with email does not exist, break and check password
       if (user.email === email) return res.ok(emailMessage)
     }
     passwordCheckBlock: {
-      if (passwordCheck(password)) break passwordCheckBlock //if users new password meets requirements
-      return res.ok(passCheck)
+      if (passCheck(password)) break passwordCheckBlock //if users new password meets requirements
+      return res.ok(passMessage)
     }
     const user = await run(dbQuery, [firstname, lastname, email, username.toLowerCase(), hashPass(password)]);
     return res.ok({message, user}) // if successful user will be an empty array
+  },
+
+  async changePass(req, res) {
+    const {dbQuery, message, passMessage, db: {run}, user: {id}, body: {password}} = req, newPassword = hashPass(password);
+    if (!passCheck(newPassword)) return res.ok(passMessage)
+    await run(dbQuery, [newPassword, id])
+    res.ok({message})  //update old hashed password in db to new one
   },
 
   async deleteUser(req, res) {
@@ -50,10 +63,5 @@ module.exports = {
     return res.ok({message, user}) // if successful user will be an empty array
   },
 
-  async changePass(req, res) {
-    const {dbQuery, message, passCheck, db: {run}, user: {id}, body: {password}} = req, newPassword = hashPass(password);
-    if (!passwordCheck(newPassword)) return res.ok(passCheck)
-    await run(dbQuery, [newPassword, id])
-    res.ok({message})  //update old hashed password in db to new one
-  }
+
 }
