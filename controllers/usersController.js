@@ -30,6 +30,7 @@ module.exports = {
     if (checkField(firstname, lastname, email, username, password)) { //check for null or undefined values entered
       return res.ok(invalidFields)
     }
+    // every new user added needs to have a unique username and email address
     usernameCheckBlock: {
       const [user] = await users.find({username}); //find user with entered username
       if (!user) break usernameCheckBlock // if user with username does not exist, break and check email
@@ -38,7 +39,6 @@ module.exports = {
     emailCheckBlock: { // check if email address entered is valid and user with entered email already exists
       if (!emailCheck(email)) return res.ok(invalidEmail)
       const [user] = await users.find({email}); //find user with entered email address
-      console.log(user)
       if (!user) break emailCheckBlock // if user with email does not exist, break and check password
       if (user.email === email) return res.ok(emailMessage)
     }
@@ -62,6 +62,4 @@ module.exports = {
       user = await run(dbQuery, [id]);
     return res.ok({message, user}) // if successful user will be an empty array
   },
-
-
 }

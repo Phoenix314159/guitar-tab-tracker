@@ -1,5 +1,3 @@
 const {hashSync, genSaltSync} = require('bcryptjs')
 
-module.exports = password => {
-  return hashSync(password, genSaltSync(10))
-}
+module.exports = password => hashSync(password, genSaltSync(10))
