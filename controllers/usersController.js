@@ -26,7 +26,7 @@ module.exports = {
 
   async addNewUser(req, res) {
     const {dbQuery, message, emailMessage, invalidEmail, checkField, invalidFields, userMessage,
-      passMessage, db: {run, users}, body: {firstname, lastname, email, username, password}} = req
+      passwordCheck, db: {run, users}, body: {firstname, lastname, email, username, password}} = req
     if (checkField(firstname, lastname, email, username, password)) { //check for null or undefined values entered
       return res.ok(invalidFields)
     }
@@ -44,7 +44,7 @@ module.exports = {
     }
     passwordCheckBlock: {
       if (passCheck(password)) break passwordCheckBlock //if users new password meets requirements
-      return res.ok(passMessage)
+      return res.ok(passwordCheck)
     }
     const user = await run(dbQuery, [firstname, lastname, email, username.toLowerCase(), hashPass(password)]);
     return res.ok({message, user}) // if successful user will be an empty array

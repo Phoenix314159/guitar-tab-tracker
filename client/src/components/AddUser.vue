@@ -33,12 +33,13 @@
                              placeholder="password"/>
     </div>
     <br>
-    <router-link to="/login">
-      <button class="btn btn-primary" @click="addNewUser">Sign Up</button>
-    </router-link>
+
+    <button class="btn btn-primary" @click="addNewUser">Sign Up</button>
+
     <router-link to="/">
       <button class="btn btn-danger">Cancel</button>
     </router-link>
+    <div class="error">{{error}}</div>
   </div>
 </template>
 <script>
@@ -50,7 +51,8 @@
         lastname: '',
         email: '',
         username: '',
-        password: ''
+        password: '',
+        error: ''
       }
     },
     methods: {
@@ -61,6 +63,13 @@
           email: this.email,
           username: this.username,
           password: this.password
+        }).then(res => {
+          console.log(res)
+          if (res.message !== 'new user added') {
+            this.error = res
+            return
+          }
+          this.$router.push({name: 'Home'})
         })
       }
     }
@@ -74,5 +83,10 @@
   .flex {
     display: flex;
     justify-content: center;
+  }
+
+  .error {
+    color: red;
+    margin-top: 2vh;
   }
 </style>

@@ -16,7 +16,7 @@ export default {
 
   async addNewUser (data) {
     const res = await axios.post('/api/add_user', data)
-    console.log(res)
+    return res.data
   },
 
   async currentUser () {
