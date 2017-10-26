@@ -3,24 +3,25 @@ import axios from 'axios'
 export default {
 
   async login (data) {
-    const response = await axios.post('/api/login', data)
-    console.log(response)
+    const res = await axios.post('/api/login', data)
+    console.log(res.data.message)
+    return res.data.message
   },
 
   async logout () {
-    let response = await axios.get('/api/logout')
-    console.log(response)
-    return response
+    let res = await axios.get('/api/logout')
+    console.log(res.data.message)
+    return res
   },
 
   async addNewUser (data) {
-    const response = await axios.post('/api/add_user', data)
-    console.log(response)
+    const res = await axios.post('/api/add_user', data)
+    console.log(res)
   },
 
   async currentUser () {
-    const response = await axios.get('/api/current_user')
-    console.log(response)
-    return response.data
+    const res = await axios.get('/api/current_user')
+    console.log(res)
+    return res.data
   }
 }

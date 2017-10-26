@@ -15,8 +15,12 @@
                              placeholder="password"/>
     </div>
     <br>
-    <router-link to="/"><button class="btn btn-primary" @click="login">Login</button></router-link>
-    <router-link to="/"><button class="btn btn-danger">Cancel</button></router-link>
+    <button class="btn btn-primary" @click="login">Login</button>
+
+    <router-link to="/">
+      <button class="btn btn-danger">Cancel</button>
+    </router-link>
+    <div class="error">{{error}}</div>
   </div>
 </template>
 
@@ -26,7 +30,8 @@
     data () {
       return {
         username: '',
-        password: ''
+        password: '',
+        error: ''
       }
     },
     methods: {
@@ -34,6 +39,11 @@
         UserService.login({
           username: this.username,
           password: this.password
+        }).then(res => {
+          if (res === 'you are logged in') {
+            this.$router.push({name: 'Home'})
+          }
+          this.error = res
         })
       }
     }
@@ -49,5 +59,10 @@
   .flex {
     display: flex;
     justify-content: center;
+  }
+
+  .error {
+    color: red;
+    margin-top: 2vh;
   }
 </style>
