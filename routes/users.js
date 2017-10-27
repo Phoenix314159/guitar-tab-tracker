@@ -1,6 +1,7 @@
 const usersController = require('../controllers/usersController'),
   log = require('../middleware/loggedIn'),
-  auth = require('../middleware/auth')
+  auth = require('../middleware/auth'),
+  songsController = '../controllers/songsController'
 
 module.exports = app => {
 
@@ -15,5 +16,9 @@ module.exports = app => {
   app.get('/api/delete_user', usersController.deleteUser)
 
   app.post('/api/change_password', auth.isAuthed, usersController.changePass)
+
+  app.get('/api/songs', songsController.getSongs)
+
+  app.post('/api/add_song', songsController.addSong)
 
 }

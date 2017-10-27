@@ -57,6 +57,7 @@
 <style scoped>
   .container {
     width: 35vw;
+    margin-bottom: 23vh;
   }
   .error1 {
     color: red;

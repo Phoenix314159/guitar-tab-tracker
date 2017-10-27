@@ -70,13 +70,12 @@
   }
 </script>
 <style scoped>
-
   .container {
     width: 35vw;
+    margin-bottom: 23vh;
   }
   .error1 {
     margin-top: 2vh;
     color: red;
   }
-
 </style>
