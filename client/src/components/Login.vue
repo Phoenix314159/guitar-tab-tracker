@@ -16,7 +16,6 @@
           ></v-text-field>
           <br>
           <button class="btn btn-primary" @click="login">Login</button>
-
           <router-link to="/">
             <button class="btn btn-danger">Cancel</button>
           </router-link>
@@ -25,11 +24,10 @@
     </v-flex>
     <div class="error1">{{error}}</div>
   </v-layout>
-
 </template>
 
 <script>
-  import UserService from '../services/user'
+  import userService from '../services/user'
   export default {
     data () {
       return {
@@ -40,11 +38,12 @@
     },
     methods: {
       login () {
-        UserService.login({
+        userService.login({
           username: this.username,
           password: this.password
         }).then(res => {
           if (res === 'you are logged in') {
+            this.$store.dispatch('setLoggedIn', true)
             this.$router.push({name: 'Home'})
           }
           this.error = res

@@ -46,6 +46,7 @@
       },
       logout () {
         UserService.logout().then(res => {
+          this.$store.dispatch('setLoggedOut', true)
           const message = res.data
           if (message === 'you must login first') {
             this.user = message
