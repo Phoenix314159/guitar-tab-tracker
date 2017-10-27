@@ -1,5 +1,3 @@
-
-
 module.exports = {
 
   async getSongs(req, res) {

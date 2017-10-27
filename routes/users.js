@@ -1,7 +1,7 @@
 const usersController = require('../controllers/usersController'),
   log = require('../middleware/loggedIn'),
   auth = require('../middleware/auth'),
-  songsController = '../controllers/songsController'
+  songsController = require('../controllers/songsController')
 
 module.exports = app => {
 
