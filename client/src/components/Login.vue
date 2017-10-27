@@ -1,5 +1,5 @@
 <template>
-  <v-layout column>
+  <v-layout column class="total">
     <v-flex xs6 offset-xs3>
       <div class="white elevation-2">
         <v-toolbar flat dense class="cyan">
@@ -55,9 +55,12 @@
 
 
 <style scoped>
+  .total {
+    margin-bottom: 22vh;
+  }
   .container {
     width: 35vw;
-    margin-bottom: 23vh;
+    /*margin-top: 10vh;*/
   }
   .error1 {
     color: red;
