@@ -17,7 +17,7 @@ module.exports = app => {
 
   app.post('/api/change_password', auth.isAuthed, usersController.changePass)
 
-  app.get('/api/songs', songsController.getSongs)
+  app.get('/api/get_songs', songsController.getSongs)
 
   app.post('/api/add_song', songsController.addSong)
 

@@ -1,5 +1,5 @@
 module.exports = app => {
-  app.use('/api/songs', (req, res, next) => {
+  app.use('/api/get_songs', (req, res, next) => {
     req.dbQuery = 'select * from songs'
     next()
   })

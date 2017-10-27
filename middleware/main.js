@@ -4,6 +4,7 @@ const bodyParser = require('body-parser'),
   logIn = require('./logIn'),
   addUser = require('./addUser'),
   users = require('./users'),
+  songs = require('./songs'),
   resStatus = require('express-res-status'),
   dbRoutesMiddleWare = require('./dbRoutes'),
   pgSession = require('connect-pg-simple')(session),
@@ -29,6 +30,7 @@ module.exports = (app, passport) => {
   logIn(app)
   addUser(app)
   users(app)
+  songs(app)
   app.use(passport.initialize())
   app.use(passport.session())
 }

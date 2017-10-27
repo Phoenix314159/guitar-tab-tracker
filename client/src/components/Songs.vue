@@ -37,7 +37,7 @@
       })
     },
     methods: {
-      addSong() {
+      addSong () {
         songsService.addSong({
           artist: this.artist,
           genre: this.genre,
