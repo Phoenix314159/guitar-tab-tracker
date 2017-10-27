@@ -21,13 +21,35 @@
   export default {
     data () {
       return {
-        songs: []
+        songs: [],
+        artist: '',
+        genre: '',
+        album: '',
+        albumImage: '',
+        youtubeId: '',
+        lyrics: '',
+        tab: ''
       }
     },
     mounted () {
       songsService.getSongs().then(res => {
         this.songs = res
       })
+    },
+    methods: {
+      addSong() {
+        songsService.addSong({
+          artist: this.artist,
+          genre: this.genre,
+          album: this.album,
+          albumImage: this.albumImage,
+          youtubeId: this.youtubeId,
+          lyrics: this.lyrics,
+          tab: this.tab
+        }).then(res => {
+          console.log(res)
+        })
+      }
     }
   }
 </script>
