@@ -1,27 +1,31 @@
 <template>
-  <div class="container">
-    <div><h1>Login</h1></div>
+  <v-layout column>
+    <v-flex xs6 offset-xs3>
+      <div class="white elevation-2">
+        <v-toolbar flat dense class="cyan">
+          <v-toolbar-title>Login</v-toolbar-title>
+        </v-toolbar>
+        <div class="container">
+          <v-text-field
+            label="Username"
+            v-model="username"
+          ></v-text-field>
+          <v-text-field
+            label="Password"
+            v-model="password"
+          ></v-text-field>
+          <br>
+          <button class="btn btn-primary" @click="login">Login</button>
 
-    <div class="flex"><input class="form-control"
-                             type="username"
-                             name="username"
-                             v-model="username"
-                             placeholder="username"/>
-    </div>
-    <div class="flex"><input class="form-control"
-                             type="password"
-                             name="password"
-                             v-model="password"
-                             placeholder="password"/>
-    </div>
-    <br>
-    <button class="btn btn-primary" @click="login">Login</button>
+          <router-link to="/">
+            <button class="btn btn-danger">Cancel</button>
+          </router-link>
+        </div>
+      </div>
+    </v-flex>
+    <div class="error1">{{error}}</div>
+  </v-layout>
 
-    <router-link to="/">
-      <button class="btn btn-danger">Cancel</button>
-    </router-link>
-    <div class="error">{{error}}</div>
-  </div>
 </template>
 
 <script>
@@ -52,16 +56,10 @@
 
 
 <style scoped>
-  .form-control {
-    width: 15vw;
+  .container {
+    width: 35vw;
   }
-
-  .flex {
-    display: flex;
-    justify-content: center;
-  }
-
-  .error {
+  .error1 {
     color: red;
     margin-top: 2vh;
   }

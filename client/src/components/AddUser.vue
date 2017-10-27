@@ -1,46 +1,41 @@
 <template>
-  <div class="container">
-    <div><h1>Sign Up</h1></div>
-    <div class="flex"><input class="form-control"
-                             type="firstname"
-                             name="firstname"
-                             v-model="firstname"
-                             placeholder="first name"/>
-    </div>
-    <div class="flex"><input class="form-control"
-                             type="lastname"
-                             name="lastname"
-                             v-model="lastname"
-                             placeholder="last name"/>
-    </div>
-    <div class="flex"><input class="form-control"
-                             type="email"
-                             name="email"
-                             v-model="email"
-                             placeholder="email address"/>
-    </div>
-
-    <div class="flex"><input class="form-control"
-                             type="username"
-                             name="username"
-                             v-model="username"
-                             placeholder="username"/>
-    </div>
-    <div class="flex"><input class="form-control"
-                             type="password"
-                             name="password"
-                             v-model="password"
-                             placeholder="password"/>
-    </div>
-    <br>
-
-    <button class="btn btn-primary" @click="addNewUser">Sign Up</button>
-
-    <router-link to="/">
-      <button class="btn btn-danger">Cancel</button>
-    </router-link>
-    <div class="error">{{error}}</div>
-  </div>
+  <v-layout column>
+    <v-flex xs6 offset-xs3>
+      <div class="white elevation-2">
+        <v-toolbar flat dense class="cyan" dark>
+          <v-toolbar-title>Sign Up</v-toolbar-title>
+        </v-toolbar>
+        <div class="container">
+          <v-text-field
+            label="First Name"
+            v-model="firstname"
+          ></v-text-field>
+          <v-text-field
+            label="Last Name"
+            v-model="lastname"
+          ></v-text-field>
+          <v-text-field
+            label="Email Address"
+            v-model="email"
+          ></v-text-field>
+          <v-text-field
+            label="Username"
+            v-model="username"
+          ></v-text-field>
+          <v-text-field
+            label="Password"
+            v-model="password"
+          ></v-text-field>
+          <br>
+          <button class="btn btn-primary" @click="addNewUser">Sign Up</button>
+          <router-link to="/">
+            <button class="btn btn-danger">Cancel</button>
+          </router-link>
+        </div>
+      </div>
+    </v-flex>
+    <div class="error1">{{error}}</div>
+  </v-layout>
 </template>
 <script>
   import UserService from '../services/user'
@@ -64,7 +59,6 @@
           username: this.username,
           password: this.password
         }).then(res => {
-          console.log(res)
           if (res.message !== 'new user added') {
             this.error = res
             return
@@ -76,17 +70,13 @@
   }
 </script>
 <style scoped>
-  .form-control {
-    width: 15vw;
-  }
 
-  .flex {
-    display: flex;
-    justify-content: center;
+  .container {
+    width: 35vw;
   }
-
-  .error {
-    color: red;
+  .error1 {
     margin-top: 2vh;
+    color: red;
   }
+
 </style>
