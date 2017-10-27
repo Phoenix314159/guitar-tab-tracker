@@ -6,8 +6,8 @@ module.exports = {
   },
 
   async addSong(req, res) {
-    const {dbQuery, message, db: {run}, body: {artist, genre, album, albumImage, youtubeId, lyrics, tab}} = req,
-      addSong = await run(dbQuery, [artist, genre, album, albumImage, youtubeId, lyrics, tab]);
+    const {dbQuery, message, db: {run}, body: {title, artist, genre, album, albumImage, youtubeId, lyrics, tab}} = req,
+      addSong = await run(dbQuery, [title, artist, genre, album, albumImage, youtubeId, lyrics, tab]);
     return res.ok({message, addSong}) //addsong will be an empty array
   },
 }

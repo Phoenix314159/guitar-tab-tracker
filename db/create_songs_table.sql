@@ -1,4 +1,5 @@
 create table songs (
+       title varchar(255) not null,
        artist varchar(255) not null,
        genre varchar(255) not null,
        album varchar(255) not null,
