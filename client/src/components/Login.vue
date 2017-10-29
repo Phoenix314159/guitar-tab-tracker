@@ -43,7 +43,7 @@
         }).then(res => {
           if (res === 'you are logged in') {
             this.$store.dispatch('setLoggedIn', true)
-            this.$router.push({name: 'Home'})
+            this.$router.push({name: 'home'})
           }
           this.error = res
         })

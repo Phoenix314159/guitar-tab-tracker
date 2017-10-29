@@ -1,4 +1,5 @@
 create table songs (
+       id serial
        title varchar(255) not null,
        artist varchar(255) not null,
        genre varchar(255) not null,
