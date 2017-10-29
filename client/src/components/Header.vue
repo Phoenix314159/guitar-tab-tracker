@@ -6,7 +6,6 @@
         @click="navigateTo({name: 'home'})">
         Tab-Tracker
       </span>
-
     </v-toolbar-title>
     <v-btn flat dark @click="navigateTo({name: 'songs'})">
       Browse

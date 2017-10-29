@@ -8,12 +8,10 @@
           {{song.genre}}
           {{song.album}}
         </div>
-
       </panel>
     </v-flex>
   </v-layout>
 </template>
-
 <script>
   import songsService from '../services/songs'
   import panel from './panel'

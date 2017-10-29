@@ -4,8 +4,8 @@ module.exports = app => {
     next()
   })
   app.use('/api/add_song', (req, res, next) => {
-    req.dbQuery = `insert into songs(artist, genre, album, albumImage, youtubeId, lyrics, tab)
-                   values($1, $2, $3, $4, $5, $6, $7)`
+    req.dbQuery = `insert into songs(title, artist, genre, album, albumImage, youtubeId, lyrics, tab)
+                   values($1, $2, $3, $4, $5, $6, $7, $8)`
     req.message = 'new song added'
     next()
   })
