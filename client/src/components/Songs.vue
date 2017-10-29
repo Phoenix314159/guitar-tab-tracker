@@ -1,32 +1,34 @@
 <template>
-  <v-layout column>
+  <v-layout column class="total">
     <v-flex xs6 offset-xs3>
-      <div class="white elevation-2 songs">
-        <v-toolbar flat dense class="cyan">
-          <v-toolbar-title>Songs</v-toolbar-title>
-          <!--<div class="container">-->
-          <div v-for="song in songs" :key="song.title">
-            {{song.title}}
-            {{song.artist}}
-          </div>
-          <!--</div>-->
-        </v-toolbar>
-      </div>
+      <panel title="Songs">
+        <div v-for="song in songs" :key="song.title">
+          {{song.title}}
+          {{song.artist}}
+          {{song.genre}}
+          {{song.album}}
+        </div>
+
+      </panel>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
   import songsService from '../services/songs'
+  import panel from './panel'
   export default {
+    components: {
+      panel
+    },
     data () {
       return {
-        songs: []
+        songs: null
       }
     },
     mounted () {
       songsService.getSongs().then(res => {
-        this.songs = res
+        this.songs = res.allSongs
       })
     }
   }

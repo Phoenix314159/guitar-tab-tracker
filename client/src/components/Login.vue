@@ -1,34 +1,33 @@
 <template>
   <v-layout column class="total">
     <v-flex xs6 offset-xs3>
-      <div class="white elevation-2">
-        <v-toolbar flat dense class="cyan">
-          <v-toolbar-title>Login</v-toolbar-title>
-        </v-toolbar>
-        <div class="container">
-          <v-text-field
-            label="Username"
-            v-model="username"
-          ></v-text-field>
-          <v-text-field
-            label="Password"
-            v-model="password"
-          ></v-text-field>
-          <br>
-          <button class="btn btn-primary" @click="login">Login</button>
-          <router-link to="/">
-            <button class="btn btn-danger">Cancel</button>
-          </router-link>
-        </div>
-      </div>
+      <panel title="Login">
+        <v-text-field
+          label="Username"
+          v-model="username"
+        ></v-text-field>
+        <v-text-field
+          label="Password"
+          v-model="password"
+        ></v-text-field>
+        <br>
+        <button class="btn btn-primary" @click="login">Login</button>
+        <router-link to="/">
+          <button class="btn btn-danger">Cancel</button>
+        </router-link>
+        <div class="error1">{{error}}</div>
+      </panel>
     </v-flex>
-    <div class="error1">{{error}}</div>
   </v-layout>
 </template>
 
 <script>
   import userService from '../services/user'
+  import panel from './panel'
   export default {
+    components: {
+      panel
+    },
     data () {
       return {
         username: '',
@@ -58,10 +57,12 @@
   .total {
     margin-bottom: 22vh;
   }
+
   .container {
     width: 35vw;
     /*margin-top: 10vh;*/
   }
+
   .error1 {
     color: red;
     margin-top: 2vh;
