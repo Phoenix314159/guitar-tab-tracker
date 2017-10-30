@@ -1,5 +1,5 @@
 create table songs (
-       id serial
+       id serial,
        title varchar(255) not null,
        artist varchar(255) not null,
        genre varchar(255) not null,
@@ -7,5 +7,5 @@ create table songs (
        albumImage varchar(255) not null,
        youtubeId varchar(255) not null,
        lyrics varchar(255) not null,
-       tab varchar(255) not null
+       tab varchar(10000) not null
    )

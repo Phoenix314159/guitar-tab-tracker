@@ -19,6 +19,8 @@ module.exports = app => {
 
   app.get('/api/get_songs', songsController.getSongs)
 
+  app.get('/api/get_song_by_id', songsController.getSongById)
+
   app.post('/api/add_song', songsController.addSong)
 
 }

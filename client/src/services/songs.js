@@ -9,5 +9,10 @@ export default {
   async addSong (song) {
     const res = await axios.post('/api/add_song', song)
     return res
+  },
+  async show (songId) {
+    const res = await axios.get(`/api/get_song_by_id?id=${songId}`)
+    return res
   }
+
 }

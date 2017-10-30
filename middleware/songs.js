@@ -9,6 +9,10 @@ module.exports = app => {
     req.message = 'new song added'
     next()
   })
+  app.use('/api/get_song_by_id', (req, res, next) => {
+    req.dbQuery = 'select * from songs where id = $1'
+    next()
+  })
 }
 
 
