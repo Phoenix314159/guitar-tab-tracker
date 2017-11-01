@@ -18,7 +18,7 @@
     </v-flex>
     <v-flex>
       <panel>
-        
+
       </panel>
     </v-flex>
     <v-flex xs6>

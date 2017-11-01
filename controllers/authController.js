@@ -24,9 +24,9 @@ module.exports = {
     return res.ok({message, session})
   },
 
-  clearCookie(req, res) {
-    res.clearCookie({path: '/'})
-    res.ok('cookie gone')
-  }
+  // clearCookie(req, res) {
+  //   res.clearCookie({path: '/'})
+  //   res.ok('cookie gone')
+  // }
 }
 
