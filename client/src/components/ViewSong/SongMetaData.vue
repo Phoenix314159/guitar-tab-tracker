@@ -3,10 +3,10 @@
     <v-flex xs6>
       <panel title="Song Data">
         <div class="song-title">
-         Title: {{song.title}}
+          Title: {{song.title}}
         </div>
         <div class="song-artist">
-         Artist: {{song.artist}}
+          Artist: {{song.artist}}
         </div>
         <div class="song-genre">
           Song: {{song.genre}}
@@ -14,11 +14,6 @@
         <img class="album-image" :src="song.albumImage">
         <br/>
         Album: {{song.album}}
-      </panel>
-    </v-flex>
-    <v-flex>
-      <panel>
-
       </panel>
     </v-flex>
     <v-flex xs6>
@@ -32,12 +27,15 @@
   </v-layout>
 </template>
 <script>
-  import songsService from '../services/songs'
-  import panel from '../components/Panel'
+  import songsService from '../../services/songs'
+  import panel from '../../components/Panel'
   export default {
     components: {
       panel
     },
+    props: [
+      'song'
+    ],
     data () {
       return {
         song: {}
@@ -48,6 +46,7 @@
       songsService.show(songId).then(res => {
         const {data: {song}} = res
         this.song = song[0]
+        console.log(this.song)
       })
     }
   }

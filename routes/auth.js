@@ -10,9 +10,6 @@ module.exports = (app, passport) => {
   app.get('/api/logout', authController.logout)
 
   app.get('/api/clear_sessions', authController.clearSessions)
-
-  app.get('/api/clear_cookie', authController.clearCookie)
-
 }
 
 
