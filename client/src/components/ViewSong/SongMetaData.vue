@@ -27,7 +27,6 @@
   </v-layout>
 </template>
 <script>
-  import songsService from '../../services/songs'
   import panel from '../../components/Panel'
   export default {
     components: {
@@ -35,20 +34,7 @@
     },
     props: [
       'song'
-    ],
-    data () {
-      return {
-        song: {}
-      }
-    },
-    mounted () {
-      const songId = this.$store.state.route.params.songId
-      songsService.show(songId).then(res => {
-        const {data: {song}} = res
-        this.song = song[0]
-        console.log(this.song)
-      })
-    }
+    ]
   }
 </script>
 <style scoped>

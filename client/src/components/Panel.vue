@@ -4,7 +4,6 @@
       <v-toolbar-title>{{title}}</v-toolbar-title>
       <slot name="action"/>
     </v-toolbar>
-
     <div class="pl-4 pr-4 pt-2 pb-2">
       <slot>
       </slot>
@@ -20,7 +19,5 @@
 </script>
 
 <style scoped>
-.button {
-  background-color: #00aaff;
-}
+
 </style>

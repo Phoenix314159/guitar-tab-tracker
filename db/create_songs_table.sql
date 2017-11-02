@@ -6,6 +6,6 @@ create table songs (
        album varchar(255) not null,
        albumImage varchar(255) not null,
        youtubeId varchar(255) not null,
-       lyrics varchar(255) not null,
+       lyrics varchar(10000) not null,
        tab varchar(10000) not null
    )

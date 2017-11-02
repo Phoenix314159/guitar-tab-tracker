@@ -1,51 +1,45 @@
 <template>
-  <v-layout>
+  <v-layout class="total">
     <v-flex xs6>
       <song-meta-data :song="song"/>
     </v-flex>
-
     <v-flex xs6 class="ml-2">
-      <you-tube :youtubeid="song.youtubeid"/>
+      <you-tube :youtubeId="song.youtubeid"/>
     </v-flex>
-    <v-flex xs6>
-      <!--<panel title="Youtube Video">-->
-
-      <!--</panel>-->
+    <v-flex xs6 class="ml-2">
+      <lyrics :song="song"/>
     </v-flex>
   </v-layout>
 </template>
 <script>
   import panel from '../../components/Panel'
   import YouTube from './Youtube'
+  import Lyrics from './Lyrics'
   import SongMetaData from './SongMetaData'
+  import songsService from '../../services/songs'
   export default {
     components: {
       panel,
       SongMetaData,
-      YouTube
+      YouTube,
+      Lyrics
     },
     data () {
       return {
         song: {}
       }
+    },
+    mounted () {
+      const songId = this.$store.state.route.params.songId
+      songsService.show(songId).then(res => {
+        const {data: {song}} = res
+        this.song = song[0]
+      })
     }
   }
 </script>
 <style scoped>
-  .song-title {
-    font-size: 30px;
-  }
-
-  .song-artist {
-    font-size: 24px;
-  }
-
-  .song-genre {
-    font-size: 18px;
-  }
-
-  .album-image {
-    width: 70%;
-    margin: 0 auto;
+  .total {
+    /*width: 145vw;*/
   }
 </style>
