@@ -8,9 +8,12 @@ const express = require('express'),
 
 (async () => { app.set('db', await massive(dbConnection)) })()
 
+//<----------- production ------------>
 if(process.env.NODE_ENV === 'production') {
   require('./services/prod')(app, express, config);
 }
+//<----------- production ------------>
+
 require('./services/passport')(passport)
 require('./middleware/main')(app, passport)
 require('./routes/auth')(app, passport)
