@@ -45,7 +45,6 @@
           const {message} = res
           if (message === 'you are logged in') {
             const {user: {firstname}} = res
-            console.log(res)
             dispatch('setLoggedIn', true)
             dispatch('setUser', firstname)
             this.$router.push({name: 'home'})

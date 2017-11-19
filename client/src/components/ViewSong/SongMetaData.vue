@@ -14,14 +14,14 @@
         <img class="album-image" :src="song.albumImage">
         <br/>
         Album: {{song.album}}
-      </panel>
-    </v-flex>
-    <v-flex xs6>
-      <panel title="Tabs" class="ml-2">
-        <textarea
-          readonly
-          v-model="song.tab"
-        ></textarea>
+        <div class="mt-2">
+          <v-btn
+            dark
+            class="cyan"
+            @click="navigateTo({name: 'song-edit', params: {songId: song.id}})">
+            Edit
+          </v-btn>
+        </div>
       </panel>
     </v-flex>
   </v-layout>
@@ -34,7 +34,12 @@
     },
     props: [
       'song'
-    ]
+    ],
+    methods: {
+      navigateTo (route) {
+        this.$router.push(route)
+      }
+    }
   }
 </script>
 <style scoped>
@@ -54,6 +59,7 @@
     width: 70%;
     margin: 0 auto;
   }
+
   textarea {
     width: 100%;
     font-family: monospace;

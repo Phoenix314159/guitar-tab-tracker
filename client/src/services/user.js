@@ -19,7 +19,6 @@ export default {
 
   async currentUser () {
     const res = await axios.get('/api/current_user')
-    console.log(res)
     return res.data
   }
 }

@@ -102,20 +102,10 @@
           this.error = 'Please fill in all the required fields'
           return
         }
-        const {title, artist, genre, album,
-          albumImage, youtubeId, lyrics, tab} = this.song
-        songsService.addSong({
-          title,
-          artist,
-          genre,
-          album,
-          albumImage,
-          youtubeId,
-          lyrics,
-          tab
-        }).then(res => {
-          this.$router.push({name: 'songs'})
-          console.log(res)
+        const {route: {params: {songId}}} = this.$store.state
+        songsService.show(songId).then(res => {
+          const {data: {song}} = res
+          this.song = song[0]
         })
       }
     }

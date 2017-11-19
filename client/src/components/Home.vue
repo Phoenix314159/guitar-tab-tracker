@@ -36,6 +36,12 @@
         this.msg = `Welcome ${user}`
       }
     },
+    updated: function () {
+      const {state: {isLoggedIn}} = this.$store
+      if (!isLoggedIn) {
+        this.msg = ''
+      }
+    },
     methods: {
 //      login () {
 //        UserService.login().then(res => {
