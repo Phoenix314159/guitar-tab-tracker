@@ -2,7 +2,7 @@
   <div>
     <v-layout>
       <v-flex xs6>
-        <panel title="Create Song" class="createSong">
+        <panel title="Update Song" class="createSong">
           <v-text-field
             label="Title"
             required
@@ -62,7 +62,7 @@
           <div class="error1" v-if="error">
             {{error}}
           </div>
-          <button class="btn btn-primary" @click="addSong">Add Song</button>
+          <button class="btn btn-primary" @click="saveSong">Save Song</button>
           <router-link to="/">
             <button class="btn btn-danger">Cancel</button>
           </router-link>
@@ -95,19 +95,37 @@
       }
     },
     methods: {
-      addSong () {
+      saveSong () {
         this.error = null
         const allFields = Object.keys(this.song).every(key => !!this.song[key])
         if (!allFields) {
           this.error = 'Please fill in all the required fields'
           return
         }
-        const {route: {params: {songId}}} = this.$store.state
-        songsService.show(songId).then(res => {
-          const {data: {song}} = res
-          this.song = song[0]
+        const {title, artist, genre, album,
+          albumImage, youtubeId, lyrics, tab} = this.song
+        const {state: {route: {params: {songId}}}} = this.$store
+        songsService.saveSong({
+          title,
+          artist,
+          genre,
+          album,
+          albumImage,
+          youtubeId,
+          lyrics,
+          tab,
+          songId
+        }).then(res => {
+          this.$router.push({name: 'songs'})
         })
       }
+    },
+    mounted () {
+      const {state: {route: {params: {songId}}}} = this.$store
+      songsService.show(songId).then(res => {
+        const {data: {song}} = res
+        this.song = song[0]
+      })
     }
   }
 </script>

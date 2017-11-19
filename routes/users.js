@@ -23,4 +23,6 @@ module.exports = app => {
 
   app.post('/api/add_song', songsController.addSong)
 
+  app.put('/api/update_song', songsController.updateSong)
+
 }

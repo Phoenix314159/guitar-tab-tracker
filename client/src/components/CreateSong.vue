@@ -115,7 +115,6 @@
           tab
         }).then(res => {
           this.$router.push({name: 'songs'})
-          console.log(res)
         })
       }
     }

@@ -13,6 +13,12 @@ module.exports = app => {
     req.dbQuery = 'select * from songs where id = $1'
     next()
   })
+  app.use('/api/update_song', (req, res, next) => {
+    req.dbQuery = `update songs set title = $1, artist = $2, genre = $3, album = $4, 
+                   albumImage = $5, youtubeId = $6, lyrics = $7, tab = $8
+                   where id = $9`
+    next()
+  })
 }
 
 
