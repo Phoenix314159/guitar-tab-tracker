@@ -63,7 +63,7 @@
             {{error}}
           </div>
           <button class="btn btn-primary" @click="saveSong">Save Song</button>
-          <router-link to="/">
+          <router-link to="/songs">
             <button class="btn btn-danger">Cancel</button>
           </router-link>
         </panel>
@@ -73,11 +73,7 @@
 </template>
 <script>
   import songsService from '../services/songs'
-  import panel from './Panel'
   export default {
-    components: {
-      panel
-    },
     data () {
       return {
         song: {

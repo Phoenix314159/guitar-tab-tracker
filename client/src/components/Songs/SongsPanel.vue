@@ -1,7 +1,5 @@
 <template>
-  <v-layout column class="total">
-    <v-flex xs6 offset-xs3>
-      <panel title="Songs">
+  <panel title="Songs">
         <v-btn
           fab
           light
@@ -39,16 +37,10 @@
           </v-layout>
         </div>
       </panel>
-    </v-flex>
-  </v-layout>
 </template>
 <script>
-  import songsService from '../services/songs'
-  import panel from './panel'
+  import songsService from '../../services/songs'
   export default {
-    components: {
-      panel
-    },
     data () {
       return {
         songs: null

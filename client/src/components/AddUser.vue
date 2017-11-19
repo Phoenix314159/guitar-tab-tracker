@@ -34,11 +34,7 @@
 </template>
 <script>
   import UserService from '../services/user'
-  import panel from './panel'
   export default {
-    components: {
-      panel
-    },
     data () {
       return {
         firstname: '',

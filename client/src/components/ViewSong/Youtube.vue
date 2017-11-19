@@ -8,14 +8,12 @@
  </panel>
 </template>
 <script>
-  import panel from '../Panel'
   import VueYouTubeEmbed from 'vue-youtube-embed'
   export default {
     props: [
       'youtubeId'
     ],
     components: {
-      panel,
       VueYouTubeEmbed
     }
   }

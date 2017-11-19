@@ -27,11 +27,7 @@
   </v-layout>
 </template>
 <script>
-  import panel from '../../components/Panel'
   export default {
-    components: {
-      panel
-    },
     props: [
       'song'
     ],

@@ -23,11 +23,7 @@
 
 <script>
   import userService from '../services/user'
-  import panel from './panel'
   export default {
-    components: {
-      panel
-    },
     data () {
       return {
         username: '',
