@@ -4,13 +4,11 @@ export default {
 
   async login (data) {
     const res = await axios.post('/api/login', data)
-    console.log(res.data.message)
-    return res.data.message
+    return res.data
   },
 
   async logout () {
     let res = await axios.get('/api/logout')
-    console.log(res.data.message)
     return res
   },
 

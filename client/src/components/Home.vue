@@ -1,69 +1,72 @@
 <template>
   <div class="hello">
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-      <br>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
-      <br>
-      <router-link to="/signup">
-        <li>
-          <button class="btn btn-primary">Sign Up</button>
-        </li>
-      </router-link>
-    </ul>
-    <ul>
-      <router-link to="/login">
-        <button class="btn btn-primary">Login</button>
-      </router-link>
-      <button class="btn btn-warning" @click="logout">Logout</button>
-      <button class="btn btn-danger" @click="currentUser">Current User</button>
-      <h1>{{ user }}</h1>
-    </ul>
+    <h1>{{ msg }}</h1>
+    <!--<ul>-->
+    <!--<router-link to="/signup">-->
+    <!--<li>-->
+    <!--<button class="btn btn-primary">Sign Up</button>-->
+    <!--</li>-->
+    <!--</router-link>-->
+    <!--</ul>-->
+    <!--<ul>-->
+    <!--<router-link to="/login">-->
+    <!--<button class="btn btn-primary">Login</button>-->
+    <!--</router-link>-->
+    <!--<button class="btn btn-warning" @click="getState">Logout</button>-->
+    <!--<button class="btn btn-danger" @click="currentUser">Current User</button>-->
+    <!--<h1>{{ user }}</h1>-->
+    <!--</ul>-->
   </div>
 </template>
 
 <script>
-  import UserService from '../services/user'
+  //  import UserService from '../services/user'
   export default {
     name: 'Home',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App',
+        msg: '',
         user: ''
       }
     },
-    methods: {
-      login () {
-        UserService.login().then(res => {
-          const {message} = res.data
-          if (message === 'please create an account') {
-            this.user = message
-          }
-        })
-      },
-      logout () {
-        UserService.logout().then(res => {
-          this.$store.dispatch('setLoggedOut', true)
-          const message = res.data
-          if (message === 'you must login first') {
-            this.user = message
-          }
-          this.user = ''
-        })
-      },
-      currentUser () {
-        UserService.currentUser().then(res => {
-          this.user = res
-        })
+    created: function () {
+      const {state: {isLoggedIn}} = this.$store
+      if (isLoggedIn) {
+        const {state: {user}} = this.$store
+        this.msg = `Welcome ${user}`
       }
+    },
+    methods: {
+//      login () {
+//        UserService.login().then(res => {
+//          const {message, user: {firstName}} = res.data
+//          if (message === 'please create an account') {
+//            return message
+//          } else {
+//            return `Welcome ${firstName}`
+//          }
+//        })
+//      },
+//      logout () {
+//        const {dispatch} = this.$store
+//        UserService.logout().then(res => {
+//          dispatch('setLoggedOut', true)
+//          const message = res.data
+//          if (message === 'you must login first') {
+//            this.user = message
+//          }
+//          this.user = ''
+//        })
+//      },
+//      currentUser () {
+//        UserService.currentUser().then(res => {
+//          this.user = res
+//        })
+//      }
     }
   }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   h1, h2 {
     font-weight: normal;

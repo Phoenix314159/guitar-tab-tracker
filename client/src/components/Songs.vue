@@ -61,8 +61,8 @@
     },
     mounted () {
       songsService.getSongs().then(res => {
-        this.songs = res.allSongs
-        console.log(this.songs)
+        const {allSongs} = res
+        this.songs = allSongs
       })
     }
   }

@@ -41,11 +41,16 @@
           username: this.username,
           password: this.password
         }).then(res => {
-          if (res === 'you are logged in') {
-            this.$store.dispatch('setLoggedIn', true)
+          const {dispatch} = this.$store
+          const {message} = res
+          if (message === 'you are logged in') {
+            const {user: {firstname}} = res
+            console.log(res)
+            dispatch('setLoggedIn', true)
+            dispatch('setUser', firstname)
             this.$router.push({name: 'home'})
           }
-          this.error = res
+          this.error = message
         })
       }
     }
