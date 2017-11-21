@@ -61,9 +61,6 @@
 </script>
 
 <style scoped>
-  .total {
-    margin-bottom: 32vh;
-  }
   .song {
     padding: 20px;
     height:330px;

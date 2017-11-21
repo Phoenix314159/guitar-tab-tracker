@@ -1,5 +1,5 @@
 <template>
-  <v-layout column class="total">
+  <v-layout column class="container">
     <v-flex xs6 offset-xs3>
       <panel title="Login">
         <v-text-field
@@ -54,13 +54,10 @@
 
 
 <style scoped>
-  .total {
-    margin-bottom: 22vh;
-  }
-
   .container {
-    width: 35vw;
-    /*margin-top: 10vh;*/
+    width: 45vw;
+    margin-bottom: 30vh;
+    padding: 2%;
   }
 
   .error1 {

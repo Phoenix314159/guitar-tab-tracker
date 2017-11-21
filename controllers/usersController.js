@@ -46,6 +46,7 @@ module.exports = {
       if (passCheck(password)) break passwordCheckBlock //if users new password meets requirements
       return res.ok(passwordCheck)
     }
+
     const user = await run(dbQuery, [firstname, lastname, email, username.toLowerCase(), hashPass(password)]);
     return res.ok({message, user}) // if successful user will be an empty array
   },

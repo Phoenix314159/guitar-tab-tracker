@@ -11,6 +11,7 @@ const express = require('express'),
 //<----------- production ------------>
 if(process.env.NODE_ENV === 'production') {
   require('./services/prod')(app, express, config);
+  app.use('/', express.static(path.join(__dirname, '/dist')))
 }
 //<----------- production ------------>
 
