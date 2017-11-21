@@ -19,7 +19,7 @@
 </script>
 
 <style scoped>
-.total{
-  height:400px;
-}
+/*.total{*/
+  /*height:400px;*/
+/*}*/
 </style>

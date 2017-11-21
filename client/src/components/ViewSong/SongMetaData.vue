@@ -13,7 +13,7 @@
             Song: {{song.genre}}
           </div>
         </div>
-        <div class="mt-2">
+        <div class="mt-4">
           <img class="album-image" :src="song.albumImage">
           Album: {{song.album}}
         </div>
@@ -63,12 +63,13 @@
 
   .left {
     text-align: left;
+    margin-top: 2vh;
   }
 
   .flexButton {
     display: flex;
     justify-content: center;
-    margin-top: 230px;
+    margin-top: 242px;
   }
 
 </style>
