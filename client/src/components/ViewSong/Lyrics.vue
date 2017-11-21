@@ -18,7 +18,7 @@
     width: 100%;
     font-family: monospace;
     border: none;
-    height: 600px;
+    height: 300px;
     border-style: none;
     border-color: transparent;
     overflow: auto;

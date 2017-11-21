@@ -1,26 +1,31 @@
 <template>
   <v-layout>
-    <v-flex xs6>
+    <v-flex>
       <panel title="Song Data">
-        <div class="song-title">
-          Title: {{song.title}}
+        <div class="left">
+          <div class="song-title">
+            Title: {{song.title}}
+          </div>
+          <div class="song-artist">
+            Artist: {{song.artist}}
+          </div>
+          <div class="song-genre">
+            Song: {{song.genre}}
+          </div>
         </div>
-        <div class="song-artist">
-          Artist: {{song.artist}}
-        </div>
-        <div class="song-genre">
-          Song: {{song.genre}}
-        </div>
-        <img class="album-image" :src="song.albumImage">
-        <br/>
-        Album: {{song.album}}
         <div class="mt-2">
-          <v-btn
-            dark
-            class="cyan"
-            @click="navigateTo({name: 'song-edit', params: {songId: song.id}})">
-            Edit
-          </v-btn>
+          <img class="album-image" :src="song.albumImage">
+          Album: {{song.album}}
+        </div>
+        <div class="flexButton">
+          <div>
+            <v-btn
+              dark
+              class="cyan"
+              @click="navigateTo({name: 'song-edit', params: {songId: song.id}})">
+              Edit
+            </v-btn>
+          </div>
         </div>
       </panel>
     </v-flex>
@@ -56,14 +61,14 @@
     margin: 0 auto;
   }
 
-  textarea {
-    width: 100%;
-    font-family: monospace;
-    border: none;
-    height: 600px;
-    border-style: none;
-    border-color: transparent;
-    overflow: auto;
-    padding: 20px;
+  .left {
+    text-align: left;
   }
+
+  .flexButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 230px;
+  }
+
 </style>

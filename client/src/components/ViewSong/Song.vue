@@ -17,7 +17,6 @@
       </v-flex>
     </v-layout>
   </div>
-
 </template>
 <script>
   import YouTube from './Youtube'

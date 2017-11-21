@@ -1,7 +1,7 @@
 <template>
-  <v-layout>
-    <v-flex xs6>
-      <panel title="Tabs" class="ml-2">
+  <v-layout class="mr-2">
+    <v-flex>
+      <panel title="Tabs">
         <textarea
           readonly
           v-model="song.tab"
@@ -22,7 +22,7 @@
     width: 100%;
     font-family: monospace;
     border: none;
-    height: 600px;
+    height: 300px;
     border-style: none;
     border-color: transparent;
     overflow: auto;

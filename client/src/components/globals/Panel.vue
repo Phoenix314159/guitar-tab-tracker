@@ -1,5 +1,5 @@
 <template>
-  <div class="white elevation-2">
+  <div class="white elevation-2 total">
     <v-toolbar flat dense class="cyan">
       <v-toolbar-title>{{title}}</v-toolbar-title>
       <slot name="action"/>
@@ -19,5 +19,7 @@
 </script>
 
 <style scoped>
-
+.total{
+  height:400px;
+}
 </style>
