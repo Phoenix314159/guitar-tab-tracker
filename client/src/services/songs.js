@@ -2,8 +2,8 @@ import axios from 'axios'
 
 export default {
 
-  async getSongs () {
-    const res = await axios.get('/api/get_songs')
+  async getSongs (search) {
+    const res = await axios.get(`/api/get_songs?search=${search}`)
     return res.data
   },
 

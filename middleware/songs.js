@@ -1,6 +1,8 @@
 module.exports = app => {
   app.use('/api/get_songs', (req, res, next) => {
     req.dbQuery = 'select * from songs'
+    req.searchQuery = `select * from songs where title = $1 or 
+                       artist = $1 or genre = $1 or  album = $1`
     next()
   })
   app.use('/api/add_song', (req, res, next) => {

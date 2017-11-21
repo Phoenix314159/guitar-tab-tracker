@@ -1,8 +1,15 @@
 module.exports = {
 
   async getSongs(req, res) {
-    const {dbQuery, db: {run}} = req, allSongs = await run(dbQuery); //array of all songs from songs table
-    return res.ok({allSongs})
+    const {searchQuery, dbQuery, query, db: {run}} = req
+    if(query.search) {
+      const {search} = query
+      const searchedSong = await run(searchQuery, [search]);
+      return res.ok({searchedSong})
+    } else {
+      const allSongs = await run(dbQuery); //array of all songs from songs table
+      return res.ok({allSongs})
+    }
   },
 
   async addSong(req, res) {
