@@ -16,7 +16,7 @@
       }
     },
     watch: {
-      search: _.debounce(value => {
+      search (value) {
         const route = {
           name: 'songs'
         }
@@ -26,7 +26,7 @@
           }
         }
         this.$router.push(route)
-      }, 700),
+      },
       '$route.query.search': {
         immediate: true,
         handler(value) {
