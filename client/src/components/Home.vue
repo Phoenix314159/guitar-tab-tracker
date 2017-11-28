@@ -1,21 +1,6 @@
 <template>
-  <div class="hello">
+  <div class="home">
     <h1>{{ msg }}</h1>
-    <!--<ul>-->
-    <!--<router-link to="/signup">-->
-    <!--<li>-->
-    <!--<button class="btn btn-primary">Sign Up</button>-->
-    <!--</li>-->
-    <!--</router-link>-->
-    <!--</ul>-->
-    <!--<ul>-->
-    <!--<router-link to="/login">-->
-    <!--<button class="btn btn-primary">Login</button>-->
-    <!--</router-link>-->
-    <!--<button class="btn btn-warning" @click="getState">Logout</button>-->
-    <!--<button class="btn btn-danger" @click="currentUser">Current User</button>-->
-    <!--<h1>{{ user }}</h1>-->
-    <!--</ul>-->
   </div>
 </template>
 

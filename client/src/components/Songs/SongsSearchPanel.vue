@@ -32,7 +32,6 @@
         handler(value) {
           this.search = value
         }
-
       }
     }
   }
