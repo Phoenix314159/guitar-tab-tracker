@@ -26,34 +26,6 @@
       if (!isLoggedIn) {
         this.msg = ''
       }
-    },
-    methods: {
-//      login () {
-//        UserService.login().then(res => {
-//          const {message, user: {firstName}} = res.data
-//          if (message === 'please create an account') {
-//            return message
-//          } else {
-//            return `Welcome ${firstName}`
-//          }
-//        })
-//      },
-//      logout () {
-//        const {dispatch} = this.$store
-//        UserService.logout().then(res => {
-//          dispatch('setLoggedOut', true)
-//          const message = res.data
-//          if (message === 'you must login first') {
-//            this.user = message
-//          }
-//          this.user = ''
-//        })
-//      },
-//      currentUser () {
-//        UserService.currentUser().then(res => {
-//          this.user = res
-//        })
-//      }
     }
   }
 </script>
