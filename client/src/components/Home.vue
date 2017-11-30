@@ -5,7 +5,6 @@
 </template>
 
 <script>
-  //  import UserService from '../services/user'
   export default {
     name: 'Home',
     data () {
